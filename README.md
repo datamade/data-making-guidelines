@@ -14,11 +14,13 @@ documenting the DataMade ETL workflow
 To achieve a reproducible data workflow, we use GNU make
 
 #### Introduction to make & makefiles
-```make``` is a build tool that generates file *targets*, each of which can have *dependencies*. Targets, dependencies, and instructions specifying to build them are defined in a *makefile*.
+```make``` is a build tool that generates file *targets*, each of which can depend upon the existence of other files (*dependencies*). Targets, dependencies, and instructions specifying to build them are defined in a *makefile*.
 
 ```make``` is a particularly nifty tool for data processing because:
-- a reason
-- another reason
+- because make targets have dependencies specified, make can build files in the right order
+- make will not rebuild existing files if their dependencies haven't changed - make only builds what's necessary
+- because make rules can be chained, all final data can be created with one command
+- some more reasons
 
 #### Makefile 101
 The building block of a makefile is a "rule". Each "rule" specifies (1) a *target*, (2) the target's *dependencies*, and the target's *recipe* (i.e. the commands for creating the target).
@@ -28,9 +30,9 @@ The general structure of a single make "rule":
 target: dependencies
 [tab] recipe
 ```
-**Targets** - some info
-**Dependencies** - some info
-**Recipes** - some info
+**Targets** - the target is what you want to generate. it can be a the name of an output file, or a variable (more on this later)  
+**Dependencies** - dependencies are optional. dependencies can be the names of files that need to exist in order to make the target, or variables (more on this later)  
+**Recipes** - recipes are commands for generating the target file. any command you can run on the terminal is fair game  for recipes - bash commands, invoking a script, etc.  
 
 [some content here about how make determines what to make & in what order, based on the rules & what files exist]
 
@@ -67,3 +69,4 @@ target: dependencies
 
 ## Related Links
 - [Makefile Style Guide by Clark Grubb](http://clarkgrubb.com/makefile-style-guide#data-workflows)
+- [Why Use Make by Mike Bostock](http://bost.ocks.org/mike/make/)
