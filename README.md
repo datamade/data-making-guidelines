@@ -1,6 +1,14 @@
 # data-making-guidelines
 documenting the DataMade ETL workflow
 
+## Contents
+- [DataMade's Data Making Principles](https://github.com/datamade/data-making-guidelines#datamades-data-making-principles)
+- [Implementation Specifics - Makefiles](https://github.com/datamade/data-making-guidelines#implementation-specifics---makefiles)
+  - [Introduction to make & makefiles](https://github.com/datamade/data-making-guidelines#introduction-to-make--makefiles)
+  - [Makefile 101](https://github.com/datamade/data-making-guidelines#makefile-101)
+  - [ETL workflow directory structure](https://github.com/datamade/data-making-guidelines#etl-workflow-directory-structure)
+
+
 ## DataMade's Data Making Principles
 
 1. Never destroy data 
