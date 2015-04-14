@@ -14,16 +14,18 @@ documenting the DataMade ETL workflow
 To achieve a reproducible data workflow, we use GNU make
 
 #### Introduction to make & makefiles
-```make``` is a build tool that generates file *targets*, each of which can depend upon the existence of other files (*dependencies*). Targets, dependencies, and instructions specifying to build them are defined in a *makefile*.
+A simple way of thinking about a data processing workflow is as a series of steps. However, instead of thinking *forward*, in terms of an order of steps from step 1 to step N, you can also also think *backwards* - in terms of the outputs that you want and the files that those outputs are derived from. Thinking backwards is a more powerful way of expressing a data workflow, since dependencies aren't always linear.
 
-```make``` is a particularly nifty tool for data processing because:
-- because make targets have dependencies specified, make can build files in the right order
-- make will not rebuild existing files if their dependencies haven't changed - make only builds what's necessary
-- because make rules can be chained, all final data can be created with one command
+```make``` is a build tool that generates file *targets*, each of which can depend upon the existence of other files (*dependencies*). Targets, dependencies, and instructions specifying to build them are defined in a *makefile*. The nice thing about makefiles is that once you specify a dependency graph, make will do the work of figuring out the individual steps required to build an output, based on your rules and the files you already have.
+
+**```make``` is a particularly nifty tool for data processing because**:
+- make allows you to create all final data with a single command, since ```make``` rules can be chained. writing a ```makefile``` is ultimately an exercise in making your existing data processing steps explicit, to ultimately avoid manual, undocumented steps
+- ```make``` is smart about only building what's necessary, because it's aware of when a file was last modified - ```make``` will not rebuild existing files if their dependencies haven't changed.
 - some more reasons
 
+
 #### Makefile 101
-The building block of a makefile is a "rule". Each "rule" specifies (1) a *target*, (2) the target's *dependencies*, and the target's *recipe* (i.e. the commands for creating the target).
+When you run a ```make``` command, ```make``` will look for instructions in a file called ```Makefile``` in the current directory. The building block of a makefile is a "rule". Each "rule" specifies (1) a *target*, (2) the target's *dependencies*, and the target's *recipe* (i.e. the commands for creating the target).
 
 The general structure of a single make "rule":
 ```
