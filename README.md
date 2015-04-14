@@ -1,5 +1,13 @@
 # data-making-guidelines
-documenting the DataMade ETL workflow
+documenting the DataMade ETL workflow  
+
+ETL is the process of:
+
+1. taking raw **source data** (Extract)
+2. doing some stuff to get the data in shape, possibly through some intermediate **derived files** (Transform)
+3. & ultimately ending up with **final output** in a usable form (for Loading into something that consumes the data - be it an app, a system, a visualization, etc.)
+
+This documents standards for treating *source data*, *derived files*, & *final output*.
 
 ## Contents
 - [DataMade's Data Making Principles](https://github.com/datamade/data-making-guidelines#datamades-data-making-principles)
