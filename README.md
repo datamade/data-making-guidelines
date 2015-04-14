@@ -91,7 +91,7 @@ In the case that a project has multiple separate data components, you can define
 #### Variables
 Variables are names defined in a makefile to refer to files, directories, targets, or just about anything that you can represent with text.
 
-A few common useful variables:
+**A few common variables we use:**
 
 | variable | description |
 |---|---|
@@ -124,7 +124,13 @@ full_clean:
 *Note: for the ```$(GENERATED_FILES)``` dependency, ```GENERATED_FILES``` should be a variable defined to include all final output targets in a makefile*
 
 #### Processors
-[some content]
+When processing a target requires more than can be accomplished with our [standard toolkit](https://github.com/datamade/data-making-guidelines#standard-toolkit), a processor (i.e. a script for a single operation) can be written.
+
+For the sake of easier reuse, each processor should be modular, only handling one operation on a file. Each processor should be configured to accept input on ```STDIN``` and write output to ```STDOUT```, so that it's easy to chain processors and operations.
+
+All processors should live in a ```processors/``` directory in the root of the repository. To make processors available to all makefiles, define the path to ```processors/``` in the ```PROCESSORS``` [variable](https://github.com/datamade/data-making-guidelines#variables).
+
+[some examples of single-purpose processors]
 
 #### Makefile Style Guide
 ***@evz, didnt you have some stuff for style already?***
