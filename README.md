@@ -96,13 +96,20 @@ By default, make assumes that targets are files. However, sometimes it is useful
 ```
 .PHONY: all clean full_clean
 ```
-The most common examples of phony targets that we use are ```all```, ```clean```, and ```full_clean```.
+The most common examples of phony targets that we use are ```all``` (make all targets defined in the makefile), ```clean``` (clean all derived files), and ```full_clean``` (clean all derived files and final output).
 
-| phony target name | description                              | rule |
-|-------------------|------------------------------------------|------|
-| ```all```         | make all targets defined in the makefile | blah |
-| ```clean```       | clean all intermediate derived files     | blah |
-| ```full_clean```  | clean all derived files and final output | blah |
+Example rules for these common commands:
+```
+all: $(GENERATED_FILES)
+
+clean:
+	rm -Rf build/*
+
+full_clean: 
+	rm -Rf build/*
+	rm -Rf finished_files/*
+```
+*Note: for the ```$(GENERATED_FILES)``` dependency, ```GENERATED_FILES``` should be a variable defined to include all final output targets in a makefile*
 
 #### Processors
 [some content]
