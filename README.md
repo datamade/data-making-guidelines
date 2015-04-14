@@ -12,10 +12,10 @@ documenting the DataMade ETL workflow
 ## DataMade's Data Making Principles
 
 1. Never destroy data 
-2. Ensure that each step in process is audit-able 
+2. Ensure that each step in process is audit-able **What does this mean?**
 3. Be able to reproduce the final data with one command 
-4. Write as little custom code as possible 
-5. Use standard tools whenever possible 
+4. Write as little custom code as possible **Let's expand on this. Do we mean prefer one liners?**
+5. Use standard tools whenever possible **Let's have a section on typical toolkit**
 
 ## Implementation Specifics - Makefiles
 
@@ -29,7 +29,7 @@ A simple way of thinking about a data processing workflow is as a series of step
 **```make``` is a particularly nifty tool for data processing because**:
 - make allows you to create all final data with a single command, since ```make``` rules can be chained. writing a ```makefile``` is ultimately an exercise in making your existing data processing steps explicit, to ultimately avoid manual, undocumented steps
 - ```make``` is smart about only building what's necessary, because it's aware of when a file was last modified - ```make``` will not rebuild existing files if their dependencies haven't changed.
-- some more reasons
+- ```make``` give you parallel processing for nearly free
 
 
 #### Makefile 101
@@ -73,6 +73,11 @@ target: dependencies
 |   `-- <another_processor_name>.sh
 `-- requirements.txt # Lists requirements that need to be installed for pipeline
 ```
+
+**what's the difference between build and mid_process_files? Shouldn't these intermediate files just be cleaned up by `make clean`?**
+
+## Makefile Style guide
+***@evz, didnt you have some stuff for style already?***
 
 ## Examples
 - [Gary Counts](https://github.com/datamade/gary-counts-data)
