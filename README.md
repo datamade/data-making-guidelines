@@ -1,4 +1,4 @@
-# Making Data, the DataMade Way
+# :sparkles:Making Data, the DataMade Way:sparkles:
 
 ## Contents
 - [Intro](https://github.com/datamade/data-making-guidelines#intro)
