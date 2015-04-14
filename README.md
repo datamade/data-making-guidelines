@@ -40,10 +40,10 @@ To achieve a reproducible data workflow, we use GNU make
 #### Introduction to Make & Makefiles
 A simple way of thinking about a data processing workflow is as a series of steps. However, instead of thinking *forward*, in terms of an order of steps from step 1 to step N, you can also also think *backwards* - in terms of the outputs that you want and the files that those outputs are derived from. Thinking backwards is a more powerful way of expressing a data workflow, since dependencies aren't always linear.
 
-```make``` is a build tool that generates file *targets*, each of which can depend upon the existence of other files (*dependencies*). Targets, dependencies, and instructions specifying to build them are defined in a *makefile*. The nice thing about makefiles is that once you specify a dependency graph, make will do the work of figuring out the individual steps required to build an output, based on your rules and the files you already have.
+```make``` is a build tool that generates file *targets*, each of which can depend upon the existence of other files (*dependencies*). Targets, dependencies, and instructions specifying to build them are defined in a *makefile*. The nice thing about makefiles is that once you specify a dependency graph, ```make``` will do the work of figuring out the individual steps required to build an output, based on your rules and the files you already have.
 
 **```make``` is a particularly nifty tool for data processing because**:
-- make allows you to create all final data with a single command, since ```make``` rules can be chained. writing a ```makefile``` is ultimately an exercise in making your existing data processing steps explicit, to ultimately avoid manual, undocumented steps
+- ```make``` allows you to create all final data with a single command, since ```make``` rules can be chained. writing a ```makefile``` is ultimately an exercise in making your existing data processing steps explicit, to ultimately avoid manual, undocumented steps
 - ```make``` is smart about only building what's necessary, because it's aware of when a file was last modified - ```make``` will not rebuild existing files if their dependencies haven't changed.
 - ```make``` give you parallel processing for nearly free
 
@@ -56,8 +56,8 @@ When you run a ```make``` command, ```make``` will look for instructions in a fi
 target: dependencies
 [tab] recipe
 ```
-**Targets** - the target is what you want to generate. make expects all targets to be files, with the exception of [phony target](https://github.com/datamade/data-making-guidelines#phony-targets). a file target can be an output filename, an output file pattern, or a [variable](https://github.com/datamade/data-making-guidelines#variables).  
-**Dependencies** - dependencies are everything that needs to exist in order to make the target. make expects all dependencies to be files. dependencies can be filenames, filename patterns, or [variables](https://github.com/datamade/data-making-guidelines#variables). dependencies are optional.   
+**Targets** - the target is what you want to generate. ```make``` expects all targets to be files, with the exception of [phony target](https://github.com/datamade/data-making-guidelines#phony-targets). a file target can be an output filename, an output file pattern, or a [variable](https://github.com/datamade/data-making-guidelines#variables).  
+**Dependencies** - dependencies are everything that needs to exist in order to make the target. ```make``` expects all dependencies to be files. dependencies can be filenames, filename patterns, or [variables](https://github.com/datamade/data-making-guidelines#variables). dependencies are optional.   
 **Recipes** - recipes are commands for generating the target file. any command you can run on the terminal is fair game  for recipes - bash commands, invoking a script, etc.  
 
 [some content here about how make determines what to make & in what order, based on the rules & what files exist]
@@ -104,7 +104,7 @@ Variables are names defined in a makefile to refer to files, directories, target
 If you have a master makefile and multiple sub-makefiles, you should define ```GENERATED_FILES``` in each sub-makefile, and the other variables above in the master makefile.
 
 #### Phony Targets
-By default, make assumes that targets are files. However, sometimes it is useful to run commands that do not represent physical files - for example, making all targets or cleaning your directory. To define phony targets, you must explicitly tell make that they are not associated with files, like so:
+By default, ```make``` assumes that targets are files. However, sometimes it is useful to run commands that do not represent physical files - for example, making all targets or cleaning your directory. To define phony targets, you must explicitly tell ```make``` that they are not associated with files, like so:
 ```
 .PHONY: all clean full_clean
 ```
