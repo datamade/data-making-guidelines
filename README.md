@@ -12,6 +12,9 @@
   - [Processors](https://github.com/datamade/data-making-guidelines#processors)
   - [Makefile Style Guide](https://github.com/datamade/data-making-guidelines#makefile-style-guide)
 - [Standard Toolkit](https://github.com/datamade/data-making-guidelines#standard-toolkit)
+  - [Unix Commands](https://github.com/datamade/data-making-guidelines#unix-commands)
+  - [CSVKit](https://github.com/datamade/data-making-guidelines#csvkit)
+- [Common Transformations - Code Examples](https://github.com/datamade/data-making-guidelines#common-transformations--examples)
 
 ## Intro
 
@@ -138,7 +141,16 @@ All processors should live in a ```processors/``` directory in the root of the r
 ## Standard Toolkit
 [some content]
 
-## Examples
+#### Unix Commands
+[some content]
+
+#### CSVKit
+[some content]
+
+## Common Transformations - Code Examples
+[some content]
+
+## Example Repositories
 - [Gary Counts](https://github.com/datamade/gary-counts-data)
 
 ## Related Links
