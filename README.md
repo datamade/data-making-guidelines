@@ -56,7 +56,7 @@ When you run a ```make``` command, ```make``` will look for instructions in a fi
 target: dependencies
 [tab] recipe
 ```
-**Targets** - the target is what you want to generate. make expects all targets to be files, with the exception of [phony target](https://github.com/datamade/data-making-guidelines#phony-targets). a file target can be an output filename, an output file pattern, a [variable](https://github.com/datamade/data-making-guidelines#variables)  
+**Targets** - the target is what you want to generate. make expects all targets to be files, with the exception of [phony target](https://github.com/datamade/data-making-guidelines#phony-targets). a file target can be an output filename, an output file pattern, or a [variable](https://github.com/datamade/data-making-guidelines#variables).  
 **Dependencies** - dependencies are everything that needs to exist in order to make the target. make expects all dependencies to be files. dependencies can be filenames, filename patterns, or [variables](https://github.com/datamade/data-making-guidelines#variables). dependencies are optional.   
 **Recipes** - recipes are commands for generating the target file. any command you can run on the terminal is fair game  for recipes - bash commands, invoking a script, etc.  
 
@@ -89,7 +89,19 @@ In the case that a project has multiple separate data components, you can define
 ```
 
 #### Variables
-[some content]
+Variables are names defined in a makefile to refer to files, directories, targets, or just about anything that you can represent with text.
+
+A few common useful variables:
+
+| variable | description |
+|---|---|
+| ```GENERATED_FILES``` | a list of all the final output targets that the makefile can build. this is used as a shorthand way of calling everything in the ```all``` [phony target](https://github.com/datamade/data-making-guidelines#phony-targets) |
+| ```DATA_DIRS``` | if there is a master makefile and sub-makefiles, this includes all of the sub-directories. it is useful for the ```all``` [phony target](https://github.com/datamade/data-making-guidelines#phony-targets) in the master makefile |
+| ```DIR``` | points to the directory that contains the master makefile |
+| ```PYTHON_BIN``` | if a Python Virtual Environment needs to be created, this points to the ```bin/``` directory inside that virtual environment |
+| ```PROCESSOR_DIR``` | if the workflow requires [processors](https://github.com/datamade/data-making-guidelines#processors), this points at the directory containing the processors |
+
+If you have a master makefile and multiple sub-makefiles, you should define ```GENERATED_FILES``` in each sub-makefile, and the other variables above in the master makefile.
 
 #### Phony Targets
 By default, make assumes that targets are files. However, sometimes it is useful to run commands that do not represent physical files - for example, making all targets or cleaning your directory. To define phony targets, you must explicitly tell make that they are not associated with files, like so:
