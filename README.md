@@ -10,7 +10,7 @@
   - [Variables](https://github.com/datamade/data-making-guidelines#variables)
   - [Processors](https://github.com/datamade/data-making-guidelines#processors)
   - [Makefile Style Guide](https://github.com/datamade/data-making-guidelines#makefile-style-guide)
-- [Standard Tools](https://github.com/datamade/data-making-guidelines#standard-tools)
+- [Standard Toolkit](https://github.com/datamade/data-making-guidelines#standard-toolkit)
 
 ## Intro
 
@@ -29,7 +29,7 @@ For enthralling insights on how to get from source data to final output, all whi
 1. Treat inputs as immutable - don't modify source data directly
 2. Be able to deterministically produce the final data with one command 
 3. Write as little custom code as possible **Let's expand on this. Do we mean prefer one liners?**
-4. Use [standard tools](https://github.com/datamade/data-making-guidelines#standard-tools) whenever possible **Let's have a section on typical toolkit**
+4. Use [standard tools](https://github.com/datamade/data-making-guidelines#standard-toolkit) whenever possible
 5. Source data should be under version control
 
 ## Implementation Specifics - Makefiles
@@ -55,8 +55,8 @@ The general structure of a single make "rule":
 target: dependencies
 [tab] recipe
 ```
-**Targets** - the target is what you want to generate. it can be an output filename, an output pattern, or a variable (more on this later)  
-**Dependencies** - dependencies are optional. dependencies (aka files that need to exist in order to make the target) can be filenames, filename patterns, or variables (more on this later)  
+**Targets** - the target is what you want to generate. it can be an output filename, an output pattern, or a [variable](https://github.com/datamade/data-making-guidelines#variables)  
+**Dependencies** - dependencies are optional. dependencies (aka files that need to exist in order to make the target) can be filenames, filename patterns, or [variables](https://github.com/datamade/data-making-guidelines#variables)  
 **Recipes** - recipes are commands for generating the target file. any command you can run on the terminal is fair game  for recipes - bash commands, invoking a script, etc.  
 
 [some content here about how make determines what to make & in what order, based on the rules & what files exist]
@@ -96,7 +96,7 @@ In the case that a project has multiple separate data components, you can define
 #### Makefile Style Guide
 ***@evz, didnt you have some stuff for style already?***
 
-## Standard Tools
+## Standard Toolkit
 [some content]
 
 ## Examples
