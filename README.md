@@ -19,11 +19,11 @@ This documents standards for treating *source data*, *derived files*, & *final o
 
 ## DataMade's Data Making Principles
 
-1. Never destroy data 
-2. Ensure that each step in process is audit-able **What does this mean?**
-3. Be able to reproduce the final data with one command 
-4. Write as little custom code as possible **Let's expand on this. Do we mean prefer one liners?**
-5. Use standard tools whenever possible **Let's have a section on typical toolkit**
+1. Treat inputs as immutable - don't modify source data directly
+2. Be able to deterministically produce the final data with one command 
+3. Write as little custom code as possible **Let's expand on this. Do we mean prefer one liners?**
+4. Use standard tools whenever possible **Let's have a section on typical toolkit**
+5. Source data should be under version control
 
 ## Implementation Specifics - Makefiles
 
