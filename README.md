@@ -8,6 +8,7 @@
   - [Makefile 101](https://github.com/datamade/data-making-guidelines#makefile-101)
   - [ETL Workflow Directory Structure](https://github.com/datamade/data-making-guidelines#etl-workflow-directory-structure)
   - [Variables](https://github.com/datamade/data-making-guidelines#variables)
+  - [Phony Targets](https://github.com/datamade/data-making-guidelines#phony-targets)
   - [Processors](https://github.com/datamade/data-making-guidelines#processors)
   - [Makefile Style Guide](https://github.com/datamade/data-making-guidelines#makefile-style-guide)
 - [Standard Toolkit](https://github.com/datamade/data-making-guidelines#standard-toolkit)
@@ -26,11 +27,11 @@ For enthralling insights on how to get from source data to final output, all whi
 
 ## DataMade's Data Making Principles
 
-1. Treat inputs as immutable - don't modify source data directly
-2. Be able to deterministically produce the final data with one command 
-3. Write as little custom code as possible **Let's expand on this. Do we mean prefer one liners?**
-4. Use [standard tools](https://github.com/datamade/data-making-guidelines#standard-toolkit) whenever possible
-5. Source data should be under version control
+- Treat inputs as immutable - don't modify source data directly
+- Be able to deterministically produce the final data with one command 
+- Write as little custom code as possible **Let's expand on this. Do we mean prefer one liners?**
+- Use [standard tools](https://github.com/datamade/data-making-guidelines#standard-toolkit) whenever possible
+- Source data should be under version control
 
 ## Implementation Specifics - Makefiles
 
@@ -50,13 +51,13 @@ A simple way of thinking about a data processing workflow is as a series of step
 #### Makefile 101
 When you run a ```make``` command, ```make``` will look for instructions in a file called ```Makefile``` in the current directory. The building block of a makefile is a "rule". Each "rule" specifies (1) a *target*, (2) the target's *dependencies*, and the target's *recipe* (i.e. the commands for creating the target).
 
-The general structure of a single make "rule":
+**The general structure of a single make "rule":**
 ```
 target: dependencies
 [tab] recipe
 ```
-**Targets** - the target is what you want to generate. it can be an output filename, an output pattern, or a [variable](https://github.com/datamade/data-making-guidelines#variables)  
-**Dependencies** - dependencies are optional. dependencies (aka files that need to exist in order to make the target) can be filenames, filename patterns, or [variables](https://github.com/datamade/data-making-guidelines#variables)  
+**Targets** - the target is what you want to generate. make expects all targets to be files, with the exception of [phony target](https://github.com/datamade/data-making-guidelines#phony-targets). a file target can be an output filename, an output file pattern, a [variable](https://github.com/datamade/data-making-guidelines#variables)  
+**Dependencies** - dependencies are everything that needs to exist in order to make the target. make expects all dependencies to be files. dependencies can be filenames, filename patterns, or [variables](https://github.com/datamade/data-making-guidelines#variables). dependencies are optional.   
 **Recipes** - recipes are commands for generating the target file. any command you can run on the terminal is fair game  for recipes - bash commands, invoking a script, etc.  
 
 [some content here about how make determines what to make & in what order, based on the rules & what files exist]
@@ -89,6 +90,19 @@ In the case that a project has multiple separate data components, you can define
 
 #### Variables
 [some content]
+
+#### Phony Targets
+By default, make assumes that targets are files. However, sometimes it is useful to run commands that do not represent physical files - for example, making all targets or cleaning your directory. To define phony targets, you must explicitly tell make that they are not associated with files, like so:
+```
+.PHONY: all clean full_clean
+```
+The most common examples of phony targets that we use are ```all```, ```clean```, and ```full_clean```.
+
+| phony target name | description                              | rule |
+|-------------------|------------------------------------------|------|
+| ```all```         | make all targets defined in the makefile | blah |
+| ```clean```       | clean all intermediate derived files     | blah |
+| ```full_clean```  | clean all derived files and final output | blah |
 
 #### Processors
 [some content]
