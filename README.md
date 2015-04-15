@@ -14,7 +14,7 @@
 - [Standard Toolkit](https://github.com/datamade/data-making-guidelines#standard-toolkit)
   - [Unix Commands](https://github.com/datamade/data-making-guidelines#unix-commands)
   - [CSVKit](https://github.com/datamade/data-making-guidelines#csvkit)
-- [Common Transformations - Code Examples](https://github.com/datamade/data-making-guidelines#common-transformations--examples)
+- [Common Transformations - Code Examples](https://github.com/datamade/data-making-guidelines#common-transformations---code-examples)
 
 ## Intro
 
@@ -138,17 +138,88 @@ All processors should live in a ```processors/``` directory in the root of the r
 #### Makefile Style Guide
 ***@evz, didnt you have some stuff for style already?***
 
+Some loose notes on best practices
+- in each rule, print a friendly message indicating what is being done via ```@echo "doing this thing to this file"```
+- always state dependencies explicitly, unless it is raw data that you start with (that can't be programmatically grabbed from the web)
+- blah
+
 ## Standard Toolkit
 [some content]
 
 #### Unix Commands
 [some content]
 
+The most common unix commands we use in data processing are wget, unzip, touch, mv/cp
+
 #### CSVKit
-[some content]
+CSVKit has very useful [command line utilities](https://csvkit.readthedocs.org/en/0.9.1/cli.html) for generating and manipulating csvs.
+
+The most common CSVKit commands that we use in data processing are [```in2csv```](https://csvkit.readthedocs.org/en/0.9.1/scripts/in2csv.html), [```csvcut```](https://csvkit.readthedocs.org/en/0.9.1/scripts/csvcut.html), and [```csvjoin```](https://csvkit.readthedocs.org/en/0.9.1/scripts/csvjoin.html). 
 
 ## Common Transformations - Code Examples
-[some content]
+1. downloading data from the web
+	```
+	# GENERAL PATTERN
+	# [your target]:
+	#	wget [source url] -O [target filepath]
+	#	touch [target filepath]
+	
+	# REAL EXAMPLE	
+	Boundaries_Miscellaneous_IDHS.zip:
+		wget http://maps.indiana.edu/download/Government/Boundaries_Miscellaneous_IDHS.zip -O build/Boundaries_Miscellaneous_IDHS.zip
+		touch build/Boundaries_Miscellaneous_IDHS.zip
+	```
+	Note that you need to touch the downloaded file - this updates the file metadata for when it was last updated, which 	```make``` uses to determine whether files are up to date.
+
+2. unzipping a zip file
+	```
+	# GENERAL PATTERN
+	# [your target]: [your zipped dependency]
+	#	unzip -o $<
+	
+	# REAL EXAMPLE	
+	chicomm.shp : chicomm.zip
+		unzip -o $<
+	```
+	```$<``` is an [automatic variable](http://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html#Automatic-Variables) that refers to the name of the first dependency
+
+3. converting excel to csv
+	```
+	# GENERAL PATTERN
+	# [your target]: [excel dependency]
+	#	in2csv [excel dependency filepath] > [target filepath]
+	
+	# REAL EXAMPLE	
+	parcel_survey_2014-02-01.csv:
+		in2csv raw/010214_ParcelSurvey_LC.xlsx > build/parcel_survey_2014-02-01.csv
+	```
+	There is no need to also run csvclean after [```in2csv```](https://csvkit.readthedocs.org/en/0.9.1/scripts/in2csv.html), since in2csv does its best to create a clean output csv.
+	If your excel document has more than one sheet, use ```in2csv``` with the ```--sheet``` option followed by the sheet name.
+	
+4. grabbing select columns from a csv
+	```
+	# GENERAL PATTERN
+	# [your target]: [dependency]
+	#	csvcut -c [comma separated column numbers or column names to cut] [dependency filepath] > [target filepath]
+	
+	# REAL EXAMPLE	
+	school_id_lookup.csv: School_data_8-3-14.xlsx
+	in2csv raw/$(notdir $?) | \
+		csvcut -c "1,2" | \
+		> build/$(notdir $@)
+	```
+	some notes
+
+4. joining two csvs
+	```
+	# GENERAL PATTERN
+	# [your target]: [your dependency]
+	#	[your recipe]
+	
+	# REAL EXAMPLE	
+	```
+	some notes
+
 
 ## Example Repositories
 - [Gary Counts](https://github.com/datamade/gary-counts-data)
