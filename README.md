@@ -9,7 +9,7 @@
   - [Why Use Make/Makefiles?](https://github.com/datamade/data-making-guidelines#why-use-makemakefiles)
   - [Makefile 101](https://github.com/datamade/data-making-guidelines#makefile-101)
   - [Makefile 201 - Some Fancy Things Built Into Make](https://github.com/datamade/data-making-guidelines#makefile-201---some-fancy-things-built-into-make)
-- [DataMade Makefile Styleguide](https://github.com/datamade/data-making-guidelines#datamade-makefile-styleguide)
+- [DataMade ETL Styleguide](https://github.com/datamade/data-making-guidelines#datamade-etl-styleguide)
   - [General Guidelines](https://github.com/datamade/data-making-guidelines#general-guidelines)
   - [ETL Workflow Directory Structure](https://github.com/datamade/data-making-guidelines#etl-workflow-directory-structure)
   - [Variables](https://github.com/datamade/data-making-guidelines#variables)
@@ -104,7 +104,7 @@ The most common automatic variables we use:
 | ```$<``` | the filenames of the first dependency |
 
 
-## DataMade Makefile Styleguide
+## DataMade ETL Styleguide
 
 ### General Guidelines
 
