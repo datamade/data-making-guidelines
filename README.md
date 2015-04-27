@@ -261,11 +261,16 @@ The most common CSVKit commands that we use in data processing are [```in2csv```
 	```
 	# GENERAL PATTERN
 	# [your target]: [your dependency]
-	#	[your recipe]
+	#	csvjoin -c [column in csv1],[column in csv2] [csv1 filepath] [csv2 filepath] > [target filepath]
 	
 	# REAL EXAMPLE	
+	%hourly.joined.csv: %hourly.csv
+		csvjoin -c 1,2 build/$(notdir $?) raw/stations.csv > build/$(notdir $@)
 	```
-	some notes
+	
+	- ```%``` is a pattern that matches any nonempty substring (making this an implicit rule)
+	- ```$?``` refers to a dependency matching the ```%hourly.csv``` pattern that is newer than its corresponding target
+	- the recipe is joining two csvs, ```$?``` & ```raw/stations.csv```, where the first column in ```$?``` = the second column in ```raw/stations.csv```
 
 
 ## Example Repositories
