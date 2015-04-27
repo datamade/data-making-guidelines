@@ -1,5 +1,7 @@
 # :sparkles:Making Data, the DataMade Way:sparkles:
 
+[![Join the chat at https://gitter.im/datamade/data-making-guidelines](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/datamade/data-making-guidelines?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Contents
 - [Intro](https://github.com/datamade/data-making-guidelines#intro)
 - [DataMade's Data Making Principles](https://github.com/datamade/data-making-guidelines#datamades-data-making-principles)
