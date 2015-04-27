@@ -42,7 +42,7 @@ For enthralling insights on how to get from source data to final output, all whi
 
 To achieve a reproducible data workflow, we use GNU make
 
-#### Introduction to Make & Makefiles
+### Why Use Make/Makefiles?
 A simple way of thinking about a data processing workflow is as a series of steps. However, instead of thinking *forward*, in terms of an order of steps from step 1 to step N, you can also also think *backwards* - in terms of the outputs that you want and the files that those outputs are derived from. Thinking backwards is a more powerful way of expressing a data workflow, since dependencies aren't always linear.
 
 ```make``` is a build tool that generates file *targets*, each of which can depend upon the existence of other files (*dependencies*). Targets, dependencies, and instructions specifying to build them are defined in a *makefile*. The nice thing about makefiles is that once you specify a dependency graph, ```make``` will do the work of figuring out the individual steps required to build an output, based on your rules and the files you already have.
@@ -53,7 +53,7 @@ A simple way of thinking about a data processing workflow is as a series of step
 - ```make``` give you parallel processing for nearly free
 
 
-#### Makefile 101
+### Makefile 101
 When you run a ```make``` command, ```make``` will look for instructions in a file called ```Makefile``` in the current directory. The building block of a makefile is a "rule". Each "rule" specifies (1) a *target*, (2) the target's *dependencies*, and the target's *recipe* (i.e. the commands for creating the target).
 
 **The general structure of a single make "rule":**
@@ -67,9 +67,10 @@ target: dependencies
 
 [some content here about how make determines what to make & in what order, based on the rules & what files exist]
 
-#### Makefile 201 - Some Fancy Things Built Into Make
+### Makefile 201 - Some Fancy Things Built Into Make
 
-**Phony Targets**
+#### Phony Targets
+
 By default, ```make``` assumes that targets are files. However, sometimes it is useful to run commands that do not represent physical files - for example, making all targets or cleaning your directory. To define phony targets, you must explicitly tell ```make``` that they are not associated with files, like so:
 ```
 .PHONY: all clean full_clean
@@ -89,7 +90,7 @@ full_clean:
 ```
 *Note: for the ```$(GENERATED_FILES)``` dependency, ```GENERATED_FILES``` should be a variable defined to include all final output targets in a makefile*
 
-**Automatic Variables**
+#### Automatic Variables
 GNU make comes with some [automatic variables](http://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html#Automatic-Variables) that you can use *in your recipe* to refer to specific targets/dependencies (this is useful in cases when you can't or don't want to hard-code targets/dependencies, and instead create implicit rules).
 
 The most common automatic variables we use:
@@ -104,14 +105,14 @@ The most common automatic variables we use:
 
 ## DataMade Makefile Styleguide
 
-#### General Guidelines
+### General Guidelines
 
 Some loose notes on best practices
 - in each rule, print a friendly message indicating what is being done via ```@echo "doing this thing to this file"```
 - always state dependencies explicitly, unless it is raw data that you start with (that can't be programmatically grabbed from the web)
 - blah
 
-#### ETL Workflow Directory Structure
+### ETL Workflow Directory Structure
 
 In the case that a project has multiple separate data components, you can define a master makefile at the root of the repository, along with sub-directories that each have a sub-makefile at the root. When using this type of nested structure, all data processing/transformation should be defined in the sub-makefiles - the master makefile should only handle setting up the environment, defining variables/targets used by multiple sub-makefiles, & calling sub makefiles.
 
@@ -137,7 +138,7 @@ In the case that a project has multiple separate data components, you can define
 `-- requirements.txt   # lists install requirements for the pipeline
 ```
 
-#### Variables
+### Variables
 Variables are names defined in a makefile to refer to files, directories, targets, or just about anything that you can represent with text.
 
 **A few common variables we define:**
@@ -152,9 +153,7 @@ Variables are names defined in a makefile to refer to files, directories, target
 
 If you have a master makefile and multiple sub-makefiles, you should define ```GENERATED_FILES``` in each sub-makefile, and the other variables above in the master makefile.
 
-
-
-#### Processors
+### Processors
 When processing a target requires more than can be accomplished with our [standard toolkit](https://github.com/datamade/data-making-guidelines#standard-toolkit), a processor (i.e. a script for a single operation) can be written.
 
 For the sake of easier reuse, each processor should be modular, only handling one operation on a file. Each processor should be configured to accept input on ```STDIN``` and write output to ```STDOUT```, so that it's easy to chain processors and operations.
