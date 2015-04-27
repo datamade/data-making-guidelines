@@ -38,7 +38,7 @@ For enthralling insights on how to get from source data to final output, all whi
 - Use [standard tools](https://github.com/datamade/data-making-guidelines#standard-toolkit) whenever possible
 - Source data should be under version control
 
-## Implementation Specifics - Makefiles
+## Make & Makefiles
 
 To achieve a reproducible data workflow, we use GNU make
 
@@ -66,6 +66,50 @@ target: dependencies
 **Recipes** - recipes are commands for generating the target file. any command you can run on the terminal is fair game  for recipes - bash commands, invoking a script, etc.  
 
 [some content here about how make determines what to make & in what order, based on the rules & what files exist]
+
+#### Makefile 201 - Some Fancy Things Built Into Make
+
+**Phony Targets**
+By default, ```make``` assumes that targets are files. However, sometimes it is useful to run commands that do not represent physical files - for example, making all targets or cleaning your directory. To define phony targets, you must explicitly tell ```make``` that they are not associated with files, like so:
+```
+.PHONY: all clean full_clean
+```
+The most common examples of phony targets that we use are ```all``` (make all targets defined in the makefile), ```clean``` (clean all derived files), and ```full_clean``` (clean all derived files and final output).
+
+Example rules for these common commands:
+```
+all: $(GENERATED_FILES)
+
+clean:
+	rm -Rf build/*
+
+full_clean: 
+	rm -Rf build/*
+	rm -Rf finished_files/*
+```
+*Note: for the ```$(GENERATED_FILES)``` dependency, ```GENERATED_FILES``` should be a variable defined to include all final output targets in a makefile*
+
+**Automatic Variables**
+GNU make comes with some [automatic variables](http://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html#Automatic-Variables) that you can use *in your recipe* to refer to specific targets/dependencies (this is useful in cases when you can't or don't want to hard-code targets/dependencies, and instead create implicit rules).
+
+The most common automatic variables we use:
+
+| variable | what it refers to |
+|---|---|
+| ```$@``` | the filename of the target |
+| ```$^``` | the filenames of all dependencies |
+| ```$?``` | the filenames of all dependencies that are newer than the target |
+| ```$<``` | the filenames of the first dependency |
+
+
+## DataMade Makefile Styleguide
+
+#### General Guidelines
+
+Some loose notes on best practices
+- in each rule, print a friendly message indicating what is being done via ```@echo "doing this thing to this file"```
+- always state dependencies explicitly, unless it is raw data that you start with (that can't be programmatically grabbed from the web)
+- blah
 
 #### ETL Workflow Directory Structure
 
@@ -96,9 +140,7 @@ In the case that a project has multiple separate data components, you can define
 #### Variables
 Variables are names defined in a makefile to refer to files, directories, targets, or just about anything that you can represent with text.
 
-**A few common variables we use:**
-
-These are DataMade best practices for variables we define - not variables that come with ```make```.
+**A few common variables we define:**
 
 | variable | description |
 |---|---|
@@ -110,37 +152,7 @@ These are DataMade best practices for variables we define - not variables that c
 
 If you have a master makefile and multiple sub-makefiles, you should define ```GENERATED_FILES``` in each sub-makefile, and the other variables above in the master makefile.
 
-**Automatic Variables:**
 
-GNU make comes with some [automatic variables](http://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html#Automatic-Variables) that you can use *in your recipe* to refer to specific targets/dependencies (this is useful in cases when you can't or don't want to hard-code targets/dependencies, and instead create implicit rules).
-
-| variable | what it refers to |
-|---|---|
-| ```$@``` | the filename of the target |
-| ```$^``` | the filenames of all dependencies |
-| ```$?``` | the filenames of all dependencies that are newer than the target |
-| ```$<``` | the filenames of the first dependency |
-
-
-#### Phony Targets
-By default, ```make``` assumes that targets are files. However, sometimes it is useful to run commands that do not represent physical files - for example, making all targets or cleaning your directory. To define phony targets, you must explicitly tell ```make``` that they are not associated with files, like so:
-```
-.PHONY: all clean full_clean
-```
-The most common examples of phony targets that we use are ```all``` (make all targets defined in the makefile), ```clean``` (clean all derived files), and ```full_clean``` (clean all derived files and final output).
-
-Example rules for these common commands:
-```
-all: $(GENERATED_FILES)
-
-clean:
-	rm -Rf build/*
-
-full_clean: 
-	rm -Rf build/*
-	rm -Rf finished_files/*
-```
-*Note: for the ```$(GENERATED_FILES)``` dependency, ```GENERATED_FILES``` should be a variable defined to include all final output targets in a makefile*
 
 #### Processors
 When processing a target requires more than can be accomplished with our [standard toolkit](https://github.com/datamade/data-making-guidelines#standard-toolkit), a processor (i.e. a script for a single operation) can be written.
@@ -151,13 +163,6 @@ All processors should live in a ```processors/``` directory in the root of the r
 
 [some examples of single-purpose processors]
 
-#### Makefile Style Guide
-***@evz, didnt you have some stuff for style already?***
-
-Some loose notes on best practices
-- in each rule, print a friendly message indicating what is being done via ```@echo "doing this thing to this file"```
-- always state dependencies explicitly, unless it is raw data that you start with (that can't be programmatically grabbed from the web)
-- blah
 
 ## Standard Toolkit
 [some content]
