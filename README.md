@@ -110,10 +110,13 @@ The most common automatic variables we use:
 There are some convenient [functions](https://www.gnu.org/software/make/manual/html_node/File-Name-Functions.html) for working with a filename or multiple filenames.
 
 Some useful filename functions:
-| function | what it does |
+
+| filename function | what it does |
 |---|---|
-| ```$(dir [filepaths])``` | returns only the directory path (removes everything after the last ```/``` in each filepath, or returns ```./``` if there is no ```/```) |
-| ```$(notdir [filepaths])``` | returns only the file name (removes everything through the last ```/``` in each filepath) |
+| ```$(dir [filepaths])``` | returns only the directory path |
+| ```$(notdir [filepaths])``` | returns only the file name |
+
+For example, ```$(dir build/output1.csv build/output2.csv)``` = ```'build/ build/'``` & ```$(notdir build/output1.csv build/output2.csv)``` = ```'output1.csv output2.csv'```
 
 ## DataMade ETL Styleguide
 
