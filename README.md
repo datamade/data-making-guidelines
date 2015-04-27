@@ -257,7 +257,7 @@ The most common CSVKit commands that we use in data processing are [```in2csv```
 	- ```tail +2``` prints output from the second line onwards - everything in a csv except for the header row
 	- ```echo "school_id,school_name"``` creates a header row with two columns
 
-4. joining two csvs
+5. joining two csvs
 	```
 	# GENERAL PATTERN
 	# [your target]: [your dependency]
@@ -269,9 +269,8 @@ The most common CSVKit commands that we use in data processing are [```in2csv```
 	```
 	
 	- ```%``` is a pattern that matches any nonempty substring (making this an implicit rule)
-	- ```$?``` refers to a dependency matching the ```%hourly.csv``` pattern that is newer than its corresponding target
-	- the recipe is joining two csvs, ```$?``` & ```raw/stations.csv```, where the first column in ```$?``` = the second column in ```raw/stations.csv```
-
+	- ```$?``` refers to a dependency that's newer than its corresponding target
+	
 
 ## Example Repositories
 - [Gary Counts](https://github.com/datamade/gary-counts-data)
