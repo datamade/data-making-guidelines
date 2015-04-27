@@ -98,6 +98,8 @@ Variables are names defined in a makefile to refer to files, directories, target
 
 **A few common variables we use:**
 
+These are DataMade best practices for variables we define - not variables that come with ```make```.
+
 | variable | description |
 |---|---|
 | ```GENERATED_FILES``` | a list of all the final output targets that the makefile can build. this is used as a shorthand way of calling everything in the ```all``` [phony target](https://github.com/datamade/data-making-guidelines#phony-targets) |
@@ -107,6 +109,18 @@ Variables are names defined in a makefile to refer to files, directories, target
 | ```PROCESSOR_DIR``` | if the workflow requires [processors](https://github.com/datamade/data-making-guidelines#processors), this points at the directory containing the processors |
 
 If you have a master makefile and multiple sub-makefiles, you should define ```GENERATED_FILES``` in each sub-makefile, and the other variables above in the master makefile.
+
+**Automatic Variables:**
+
+GNU make comes with some [automatic variables](http://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html#Automatic-Variables) that you can use *in your recipe* to refer to specific targets/dependencies (this is useful in cases when you can't or don't want to hard-code targets/dependencies, and instead create implicit rules).
+
+| variable | what it refers to |
+|---|---|
+| ```$@``` | the filename of the target |
+| ```$^``` | the filenames of all dependencies |
+| ```$?``` | the filenames of all dependencies that are newer than the target |
+| ```$<``` | the filenames of the first dependency |
+
 
 #### Phony Targets
 By default, ```make``` assumes that targets are files. However, sometimes it is useful to run commands that do not represent physical files - for example, making all targets or cleaning your directory. To define phony targets, you must explicitly tell ```make``` that they are not associated with files, like so:
@@ -198,7 +212,7 @@ The most common CSVKit commands that we use in data processing are [```in2csv```
 	There is no need to also run csvclean after [```in2csv```](https://csvkit.readthedocs.org/en/0.9.1/scripts/in2csv.html), since in2csv does its best to create a clean output csv.
 	If your excel document has more than one sheet, use ```in2csv``` with the ```--sheet``` option followed by the sheet name.
 	
-4. grabbing select columns from a csv
+4. grabbing select columns from an excel doc, & creating a csv with a new header
 	```
 	# GENERAL PATTERN
 	# [your target]: [dependency]
@@ -206,11 +220,16 @@ The most common CSVKit commands that we use in data processing are [```in2csv```
 	
 	# REAL EXAMPLE	
 	school_id_lookup.csv: School_data_8-3-14.xlsx
-	in2csv raw/$(notdir $?) | \
+	in2csv raw/$(notdir $<) | \
 		csvcut -c "1,2" | \
-		> build/$(notdir $@)
+		(echo "school_id,school_name" ; tail +2) > build/$(notdir $@)
 	```
-	some notes
+	
+	- ```csvcut -c``` extracts the column numbers you specify - in this case, the first and second columns
+	- ```$<``` refers to ```School_data_8-3-14.xlsx```, and ```$@``` refers to ```school_id_lookup.csv```
+	- ```notdir``` extracts only the filename of what comes after it, ignoring directory paths
+	- ```tail +2``` prints output from the second line onwards - everything in a csv except for the header row
+	- ```echo "school_id,school_name"``` creates a header row with two columns
 
 4. joining two csvs
 	```
