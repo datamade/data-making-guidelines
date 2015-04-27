@@ -10,7 +10,7 @@
   - [Makefile 101](https://github.com/datamade/data-making-guidelines#makefile-101)
   - [Makefile 201 - Some Fancy Things Built Into Make](https://github.com/datamade/data-making-guidelines#makefile-201---some-fancy-things-built-into-make)
 - [DataMade ETL Styleguide](https://github.com/datamade/data-making-guidelines#datamade-etl-styleguide)
-  - [General Guidelines](https://github.com/datamade/data-making-guidelines#general-guidelines)
+  - [Makefile Best Practices](https://github.com/datamade/data-making-guidelines#makefile-best-practices)
   - [ETL Workflow Directory Structure](https://github.com/datamade/data-making-guidelines#etl-workflow-directory-structure)
   - [Variables](https://github.com/datamade/data-making-guidelines#variables)
   - [Processors](https://github.com/datamade/data-making-guidelines#processors)
@@ -70,6 +70,8 @@ target: dependencies
 
 ### Makefile 201 - Some Fancy Things Built Into Make
 
+The following is not complete documentation of ```make``` functionality - just some stuff we use most often.
+
 #### Phony Targets
 
 By default, ```make``` assumes that targets are files. However, sometimes it is useful to run commands that do not represent physical files - for example, making all targets or cleaning your directory. To define phony targets, you must explicitly tell ```make``` that they are not associated with files, like so:
@@ -92,7 +94,7 @@ full_clean:
 *Note: for the ```$(GENERATED_FILES)``` dependency, ```GENERATED_FILES``` should be a variable defined to include all final output targets in a makefile*
 
 #### Automatic Variables
-GNU make comes with some [automatic variables](http://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html#Automatic-Variables) that you can use *in your recipe* to refer to specific targets/dependencies (this is useful in cases when you can't or don't want to hard-code targets/dependencies, and instead create implicit rules).
+GNU make comes with some [automatic variables](http://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html#Automatic-Variables) that you can use *in your recipe* to refer to specific targets/dependencies.
 
 The most common automatic variables we use:
 
@@ -103,15 +105,24 @@ The most common automatic variables we use:
 | ```$?``` | the filenames of all dependencies that are newer than the target |
 | ```$<``` | the filenames of the first dependency |
 
+#### Functions for Filenames
+
+There are some convenient [functions](https://www.gnu.org/software/make/manual/html_node/File-Name-Functions.html) for working with a filename or multiple filenames.
+
+Some useful filename functions:
+| function | what it does |
+|---|---|
+| ```$(dir [filepaths])``` | returns only the directory path (removes everything after the last ```/``` in each filepath, or returns ```./``` if there is no ```/```) |
+| ```$(notdir [filepaths])``` | returns only the file name (removes everything through the last ```/``` in each filepath) |
 
 ## DataMade ETL Styleguide
 
-### General Guidelines
+### Makefile Best Practices
 
-Some loose notes on best practices
+Some loose notes on best practices:
 - in each rule, print a friendly message indicating what is being done via ```@echo "doing this thing to this file"```
-- always state dependencies explicitly, unless it is raw data that you start with (that can't be programmatically grabbed from the web)
-- blah
+- unless a rule is acting on raw data that can't be programmatically grabbed from the web, the rule should have one or more dependencies
+- [some more content]
 
 ### ETL Workflow Directory Structure
 
@@ -161,8 +172,11 @@ For the sake of easier reuse, each processor should be modular, only handling on
 
 All processors should live in a ```processors/``` directory in the root of the repository. To make processors available to all makefiles, define the path to ```processors/``` in the ```PROCESSORS``` [variable](https://github.com/datamade/data-making-guidelines#variables).
 
-[some examples of single-purpose processors]
-
+Some examples of single-purpose processors:
+- [excel date column -> ISO formatted date column](https://github.com/datamade/gary-counts-data/blob/master/data/processors/convert_excel_time.py)
+- ['NA' or 'N/A' -> None](https://github.com/datamade/gary-counts-data/blob/master/data/processors/make_real_nulls.py)
+- [delete empty rows from a csv](https://github.com/datamade/gary-counts-data/blob/master/data/processors/delete_empty_rows.py)
+- [strip whitespace in a csv](https://github.com/datamade/gary-counts-data/blob/master/data/processors/strip_whitespace.py)
 
 ## Standard Toolkit
 [some content]
