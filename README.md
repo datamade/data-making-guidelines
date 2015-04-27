@@ -105,6 +105,10 @@ The most common automatic variables we use:
 | ```$?``` | the filenames of all dependencies that are newer than the target |
 | ```$<``` | the filenames of the first dependency |
 
+#### Pattern Rules (Implicit Rules)
+
+In cases where you don't want to state targets explicitly, you can write an [implicit rule](https://www.gnu.org/software/make/manual/html_node/Pattern-Rules.html) by including ```%``` in the target and dependencies - ```%``` will match any nonempty substring, and the match is called the *stem*.
+
 #### Functions for Filenames
 
 There are some convenient [functions](https://www.gnu.org/software/make/manual/html_node/File-Name-Functions.html) for working with a filename or multiple filenames.
