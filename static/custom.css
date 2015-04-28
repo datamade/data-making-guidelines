@@ -1,0 +1,16 @@
+.codeblock{
+    background: #d0e9de;
+    font-family: "Lucida Console";
+    font-size: .8em;
+    padding: 15px;
+    width: 800px;
+    overflow: scroll;
+}
+
+.heavy{
+    font-weight: 700;
+}
+
+.more{
+    background-color: #FFF0A5;
+}
