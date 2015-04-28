@@ -15,7 +15,7 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-10">
 
                     <h1 class="heavy">Make By Example!</h1>
                     <h3 class="heavy">Intro</h2>
@@ -27,13 +27,16 @@
                     <div class="codeblock">
                         <span class="more" data-toggle="popover" data-placement="top" data-content="this is the target. there's no dependency here, b/c it's being downloaded from the web">parcels.zip</span>:
                         <br>&nbsp;&nbsp;&nbsp;
-                        <span class="more" data-toggle="popover" data-placement="top" data-content="wget retrieves a file from a URL">wget</span> http://maps.indiana.edu/download/Reference/Land_Parcels_County_IDHS.zip <span class="more" data-toggle="popover" data-placement="top" data-content="a wget option that allows you to rename what you're downloading">-O</span> <span class="more" data-toggle="popover" data-placement="top" data-content="putting Parcels.zip in the build directory">build/parcels.zip</span>
+                        <span class="more" data-toggle="popover" data-placement="top" data-content="wget retrieves a file from a URL">wget</span> 
+                        <span class="more" data-toggle="popover" data-placement="top" data-content="this option causes the downloaded file to have a local timestamp, rather than using the timestamp of the file on the server (default wget behavior). this is necessary b/c make looks at the last-modified metadata to determine what needs to be built">--no-use-server-timestamps</span> <span class="more" data-toggle="popover" data-placement="top" data-content="break up code into multiple lines when it gets long, for readability">\</span>
                         <br>&nbsp;&nbsp;&nbsp;
-                        <span class="more" data-toggle="popover" data-placement="bottom" data-content="updates the parcels.zip metadata for when it was last updated. this is necessary b/c make uses this info to determine whether files are up to date">touch</span> build/parcels.zip
+                        http://maps.indiana.edu/download/Reference/Land_Parcels_County_IDHS.zip <span class="more" data-toggle="popover" data-placement="top" data-content="a wget option that allows you to rename what you're downloading">-O</span> <span class="more" data-toggle="popover" data-placement="top" data-content="this is an automatic variable referring to the filename of the target, in this case parcels.zip">$@</span>
                     </div>
 
                     <h4>2. Unzipping a zip directory</h4>
                     <div class="codeblock">
+                        <span class="more" data-toggle="popover" data-placement="top" data-content="this states that chicomm.shp is an intermediate target, meaning that it will be deleted after all targets listing it as a dependency have been built">.INTERMEDIATE</span>:
+                        chicomm.shp<br>
                         <span class="more" data-toggle="popover" data-placement="top" data-content="the target">chicomm.shp</span>:
                         <span class="more" data-toggle="popover" data-placement="top" data-content="the zipped dependency">chicomm.zip</span>
                         <br>&nbsp;&nbsp;&nbsp;
@@ -42,10 +45,12 @@
 
                     <h4>3. Converting excel to csv</h4>
                     <div class="codeblock">
+                        <span class="more" data-toggle="popover" data-placement="top" data-content="this states that parcel_survey.csv is an intermediate target, meaning that it will be deleted after all targets listing it as a dependency have been built">.INTERMEDIATE</span>:
+                        parcel_survey.csv<br>
                         <span class="more" data-toggle="popover" data-placement="top" data-content="the csv target">parcel_survey.csv</span>:
                         <span class="more" data-toggle="popover" data-placement="top" data-content="the excel dependency">parcel_survey.xlsx</span>
                         <br>&nbsp;&nbsp;&nbsp;
-                        <span class="more" data-toggle="popover" data-placement="bottom" data-content="a csvkit command for converting to csv">in2csv</span> raw/<span class="more" data-toggle="popover" data-placement="bottom" data-content="notdir is a function for filenames built into make. [insert explanation of why we are using notdir] $< is an automatic variable referring to the first dependency">$(notdir $<)</span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="this redirects output to a file instead of stdout (the console)">></span> build/$(notdir <span class="more" data-toggle="popover" data-placement="bottom" data-content="an automatic variable referring to the name of the target, in this case parcel_survey.csv">$@</span>) 
+                        <span class="more" data-toggle="popover" data-placement="bottom" data-content="a csvkit command for converting to csv">in2csv</span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="$< is an automatic variable referring to the filename of the first dependency, in this case parcel_survey.xlsx">$<</span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="this redirects output to a file instead of stdout (the console)">></span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="an automatic variable referring to the filename of the target, in this case parcel_survey.csv">$@</span>
                     </div>
 
 

@@ -13,7 +13,6 @@
   - [Processors](#processors)
   - [Standard Toolkit](#standard-toolkit)
   - [ETL Workflow Directory Structure](#etl-workflow-directory-structure)
-- [Common Transformations - Code Examples](#common-transformations---code-examples)
 
 ## Intro
 
@@ -200,82 +199,10 @@ In the case that a project has multiple separate data components, you can define
 `-- requirements.txt   # lists install requirements for the pipeline
 ```
 
-## Common Transformations - Code Examples
-1. downloading data from the web
-	```
-	# GENERAL PATTERN
-	# [your target]:
-	#	wget [source url] -O [target filepath]
-	#	touch [target filepath]
-	
-	# REAL EXAMPLE	
-	Boundaries_Miscellaneous_IDHS.zip:
-		wget --no-use-server-timestamps http://maps.indiana.edu/download/Government/Boundaries_Miscellaneous_IDHS.zip -O build/Boundaries_Miscellaneous_IDHS.zip
-	```
-	Make looks at the last modified timestamps of file to figure out what may need rebuilding. The 	          	`--no-use-server-timestamps` argument will cause the downloaded file to have a local timeestampe, not the 		timestamp of the file on the server, which is the default behavior. 
-
-2. unzipping a zip file
-	```
-	# GENERAL PATTERN
-	# [your target]: [your zipped dependency]
-	#	unzip -o $<
-	
-	# REAL EXAMPLE	
-	chicomm.shp : chicomm.zip
-		unzip -o $<
-	```
-	```$<``` is an [automatic variable](http://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html#Automatic-Variables) that refers to the name of the first dependency
-
-3. converting excel to csv
-	```
-	# GENERAL PATTERN
-	# [your target]: [excel dependency]
-	#	in2csv [excel dependency filepath] > [target filepath]
-	
-	# REAL EXAMPLE	
-	parcel_survey_2014-02-01.csv: raw/010214_ParcelSurvey_LC.xlsx
-		in2csv $< > $@
-	```
-	There is no need to also run csvclean after [```in2csv```](https://csvkit.readthedocs.org/en/0.9.1/scripts/in2csv.html), since in2csv does its best to create a clean output csv.
-	If your excel document has more than one sheet, use ```in2csv``` with the ```--sheet``` option followed by the sheet name.
-	
-4. grabbing select columns from an excel doc, & creating a csv with a new header
-	```
-	# GENERAL PATTERN
-	# [your target]: [dependency]
-	#	csvcut -c [comma separated column numbers or column names to cut] [dependency filepath] > [target filepath]
-	
-	# REAL EXAMPLE	
-	school_id_lookup.csv: School_data_8-3-14.xlsx
-	in2csv raw/$(notdir $<) | \
-		csvcut -c "1,2" | \
-		(echo "school_id,school_name" ; tail +2) > build/$(notdir $@)
-	```
-	
-	- ```csvcut -c``` extracts the column numbers you specify - in this case, the first and second columns
-	- ```$<``` refers to ```School_data_8-3-14.xlsx```, and ```$@``` refers to ```school_id_lookup.csv```
-	- ```notdir``` extracts only the filename of what comes after it, ignoring directory paths
-	- ```tail +2``` prints output from the second line onwards - everything in a csv except for the header row
-	- ```echo "school_id,school_name"``` creates a header row with two columns
-
-5. joining two csvs
-	```
-	# GENERAL PATTERN
-	# [your target]: [your dependency]
-	#	csvjoin -c [column in csv1],[column in csv2] [csv1 filepath] [csv2 filepath] > [target filepath]
-	
-	# REAL EXAMPLE	
-	%hourly.joined.csv: %hourly.csv raw/stations.csv
-		csvjoin -c 1,2 build/$(notdir $?) $(word 2,$^) > build/$(notdir $@)
-	```
-	
-	- ```%``` is a pattern that matches any nonempty substring (making this an implicit rule)
-	- ```$?``` refers to a dependency that's newer than its corresponding target
-	
-
 
 ## Example Repositories
 - [Gary Counts](https://github.com/datamade/gary-counts-data)
+- [Trees](https://github.com/fgregg/trees)
 
 ## Related Links
 - [Makefile Style Guide by Clark Grubb](http://clarkgrubb.com/makefile-style-guide#data-workflows)

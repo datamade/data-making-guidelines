@@ -1,10 +1,10 @@
 .codeblock{
     background: #d0e9de;
-    font-family: "Lucida Console";
+    font-family: "Courier";
     font-size: .8em;
     padding: 15px;
-    width: 800px;
     overflow: scroll;
+    white-space: nowrap;
 }
 
 .heavy{
