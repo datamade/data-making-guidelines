@@ -163,12 +163,11 @@ Some examples of single-purpose processors:
 
 - For fetching content on the web, use wget 
 - For manipulating geo files, use GDAL/OGR 
-- For simple sql like queries use csvkit
 - CSVKit for spreadsheets, or things that can be made into spreadsheets. In particular
   -  [```in2csv```](https://csvkit.readthedocs.org/en/0.9.1/scripts/in2csv.html)    
   -  [```csvcut```](https://csvkit.readthedocs.org/en/0.9.1/scripts/csvcut.html)
   -  [```csvjoin```](https://csvkit.readthedocs.org/en/0.9.1/scripts/csvjoin.html) 
-- For simple sql like queries use csvkit
+- For simple sql-like queries use csvkit
 - For more complicated queries use postgres
 - For geospatial queries use postgis
 - For text manipulation use sed, unless it's **much** easier to do it with awk
