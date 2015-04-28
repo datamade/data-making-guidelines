@@ -127,9 +127,12 @@ For example, ```$(dir build/output1.csv build/output2.csv)``` = ```'build/ build
 ### Makefile Best Practices
 
 Some loose notes on best practices:
-- in each rule, print a friendly message indicating what is being done via ```@echo "doing this thing to this file"```
-- unless a rule is acting on raw data that can't be programmatically grabbed from the web, the rule should have one or more dependencies
-- [some more content]
+- Some transformations, especially those chaining unix tools, are obscure. Consider printing the purpose of the transformation ```@echo "Downcasing the header of this csv"```
+- Always echo commands.
+- To limit verbosity, use arg flags. Avoid piping stderr to dev/null
+- List recipes in rough order of processing steps
+- Have 'all' and 'clean' targets
+- Variables go at the top of the file, followed by 'all' and 'clean' targets
 
 ### ETL Workflow Directory Structure
 
@@ -186,17 +189,22 @@ Some examples of single-purpose processors:
 - [strip whitespace in a csv](https://github.com/datamade/gary-counts-data/blob/master/data/processors/strip_whitespace.py)
 
 ## Standard Toolkit
-[some content]
 
-#### Unix Commands
-[some content]
+- For fetching content on the web, use wget 
+- For manipulating geo files, use GDAL/OGR 
+- For simple sql like queries use csvkit
+- CSVKit for spreadsheets, or things that can be made into spreadsheets. In particular
+  -  [```in2csv```](https://csvkit.readthedocs.org/en/0.9.1/scripts/in2csv.html)    
+  -  [```csvcut```](https://csvkit.readthedocs.org/en/0.9.1/scripts/csvcut.html)
+  -  [```csvjoin```](https://csvkit.readthedocs.org/en/0.9.1/scripts/csvjoin.html) 
+- For simple sql like queries use csvkit
+- For more complicated queries use postgres
+- For geospatial queries use postgis
+- For text manipulation use sed, unless it's **much** easier to do it with awk
+- CSVKit for spreadsheets, or things that can be made into spreadsheets
+- unzip, gzip, and tar for uncompressed files. If you are compressing files, and have an option, use tar zcvf
+- For custom transform code, use Python
 
-The most common unix commands we use in data processing are wget, unzip, touch, mv/cp
-
-#### CSVKit
-CSVKit has very useful [command line utilities](https://csvkit.readthedocs.org/en/0.9.1/cli.html) for generating and manipulating csvs.
-
-The most common CSVKit commands that we use in data processing are [```in2csv```](https://csvkit.readthedocs.org/en/0.9.1/scripts/in2csv.html), [```csvcut```](https://csvkit.readthedocs.org/en/0.9.1/scripts/csvcut.html), and [```csvjoin```](https://csvkit.readthedocs.org/en/0.9.1/scripts/csvjoin.html). 
 
 ## Common Transformations - Code Examples
 1. downloading data from the web
@@ -208,10 +216,9 @@ The most common CSVKit commands that we use in data processing are [```in2csv```
 	
 	# REAL EXAMPLE	
 	Boundaries_Miscellaneous_IDHS.zip:
-		wget http://maps.indiana.edu/download/Government/Boundaries_Miscellaneous_IDHS.zip -O build/Boundaries_Miscellaneous_IDHS.zip
-		touch build/Boundaries_Miscellaneous_IDHS.zip
+		wget --no-use-server-timestamps http://maps.indiana.edu/download/Government/Boundaries_Miscellaneous_IDHS.zip -O build/Boundaries_Miscellaneous_IDHS.zip
 	```
-	Note that you need to touch the downloaded file - this updates the file metadata for when it was last updated, which 	```make``` uses to determine whether files are up to date.
+	Make looks at the last modified timestamps of file to figure out what may need rebuilding. The 	          	`--no-use-server-timestamps` argument will cause the downloaded file to have a local timeestampe, not the 		timestamp of the file on the server, which is the default behavior. 
 
 2. unzipping a zip file
 	```
@@ -232,8 +239,8 @@ The most common CSVKit commands that we use in data processing are [```in2csv```
 	#	in2csv [excel dependency filepath] > [target filepath]
 	
 	# REAL EXAMPLE	
-	parcel_survey_2014-02-01.csv:
-		in2csv raw/010214_ParcelSurvey_LC.xlsx > build/parcel_survey_2014-02-01.csv
+	parcel_survey_2014-02-01.csv: raw/010214_ParcelSurvey_LC.xlsx
+		in2csv $< > $@
 	```
 	There is no need to also run csvclean after [```in2csv```](https://csvkit.readthedocs.org/en/0.9.1/scripts/in2csv.html), since in2csv does its best to create a clean output csv.
 	If your excel document has more than one sheet, use ```in2csv``` with the ```--sheet``` option followed by the sheet name.
@@ -264,8 +271,8 @@ The most common CSVKit commands that we use in data processing are [```in2csv```
 	#	csvjoin -c [column in csv1],[column in csv2] [csv1 filepath] [csv2 filepath] > [target filepath]
 	
 	# REAL EXAMPLE	
-	%hourly.joined.csv: %hourly.csv
-		csvjoin -c 1,2 build/$(notdir $?) raw/stations.csv > build/$(notdir $@)
+	%hourly.joined.csv: %hourly.csv raw/stations.csv
+		csvjoin -c 1,2 build/$(notdir $?) $(word 2,$^) > build/$(notdir $@)
 	```
 	
 	- ```%``` is a pattern that matches any nonempty substring (making this an implicit rule)
