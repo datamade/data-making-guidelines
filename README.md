@@ -1,21 +1,19 @@
 # :sparkles:Making Data, the DataMade Way:sparkles:
 
 ## Contents
-- [Intro](https://github.com/datamade/data-making-guidelines#intro)
-- [DataMade's Data Making Principles](https://github.com/datamade/data-making-guidelines#datamades-data-making-principles)
-- [Make & Makefiles](https://github.com/datamade/data-making-guidelines#make--makefiles)
-  - [Why Use Make/Makefiles?](https://github.com/datamade/data-making-guidelines#why-use-makemakefiles)
-  - [Makefile 101](https://github.com/datamade/data-making-guidelines#makefile-101)
-  - [Makefile 201 - Some Fancy Things Built Into Make](https://github.com/datamade/data-making-guidelines#makefile-201---some-fancy-things-built-into-make)
-- [DataMade ETL Styleguide](https://github.com/datamade/data-making-guidelines#datamade-etl-styleguide)
-  - [Makefile Best Practices](https://github.com/datamade/data-making-guidelines#makefile-best-practices)
-  - [ETL Workflow Directory Structure](https://github.com/datamade/data-making-guidelines#etl-workflow-directory-structure)
-  - [Variables](https://github.com/datamade/data-making-guidelines#variables)
-  - [Processors](https://github.com/datamade/data-making-guidelines#processors)
-- [Standard Toolkit](https://github.com/datamade/data-making-guidelines#standard-toolkit)
-  - [Unix Commands](https://github.com/datamade/data-making-guidelines#unix-commands)
-  - [CSVKit](https://github.com/datamade/data-making-guidelines#csvkit)
-- [Common Transformations - Code Examples](https://github.com/datamade/data-making-guidelines#common-transformations---code-examples)
+- [Intro](#intro)
+- [DataMade's Data Making Principles](#datamades-data-making-principles)
+- [Make & Makefiles](#make--makefiles)
+  - [Why Use Make/Makefiles?](#why-use-makemakefiles)
+  - [Makefile 101](#makefile-101)
+  - [Makefile 201 - Some Fancy Things Built Into Make](#makefile-201---some-fancy-things-built-into-make)
+- [DataMade ETL Styleguide](#datamade-etl-styleguide)
+  - [Makefile Best Practices](#makefile-best-practices)
+  - [Variables](#variables)
+  - [Processors](#processors)
+  - [Standard Toolkit](#standard-toolkit)
+  - [ETL Workflow Directory Structure](#etl-workflow-directory-structure)
+- [Common Transformations - Code Examples](#common-transformations---code-examples)
 
 ## Intro
 
@@ -131,6 +129,7 @@ Some loose notes on best practices:
 - List recipes in rough order of processing steps
 - Have 'all' and 'clean' targets
 - Variables go at the top of the file, followed by 'all' and 'clean' targets
+- Prefer implicit patterns over explicit recipes. Encourages DRY and files created by implicit patterns will automatically be cleaned up. 
 
 ### Variables
 Variables are names defined in a makefile to refer to files, directories, targets, or just about anything that you can represent with text.
