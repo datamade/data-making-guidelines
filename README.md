@@ -31,8 +31,8 @@ For enthralling insights on how to get from source data to final output, all whi
 
 - Treat inputs as immutable - don't modify source data directly
 - Be able to deterministically produce the final data with one command 
-- Write as little custom code as possible **Let's expand on this. Do we mean prefer one liners?**
-- Use [standard tools](https://github.com/datamade/data-making-guidelines#standard-toolkit) whenever possible
+- Write as little custom code as possible 
+- Use [standard tools](#standard-toolkit) whenever possible
 - Source data should be under version control
 
 ## Make & Makefiles
@@ -61,8 +61,6 @@ target: dependencies
 **Targets** - the target is what you want to generate. ```make``` expects all targets to be files, with the exception of [phony target](https://github.com/datamade/data-making-guidelines#phony-targets). a file target can be an output filename, an output file pattern, or a [variable](https://github.com/datamade/data-making-guidelines#variables).  
 **Dependencies** - dependencies are everything that needs to exist in order to make the target. ```make``` expects all dependencies to be files. dependencies can be filenames, filename patterns, or [variables](https://github.com/datamade/data-making-guidelines#variables). dependencies are optional.   
 **Recipes** - recipes are commands for generating the target file. any command you can run on the terminal is fair game  for recipes - bash commands, invoking a script, etc.  
-
-[some content here about how make determines what to make & in what order, based on the rules & what files exist]
 
 ### Makefile 201 - Some Fancy Things Built Into Make
 
