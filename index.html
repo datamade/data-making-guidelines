@@ -21,7 +21,7 @@
                     <h3 class="heavy">Intro</h2>
                     <p>some words and stuff</p>
 
-                    <h3 class="heavy">Examples</h2>
+                    <h3 class="heavy">Example Make Rules</h2>
 
                     <h4>1. Downloading a zip directory</h4>
                     <div class="codeblock">
@@ -50,8 +50,29 @@
                         <span class="more" data-toggle="popover" data-placement="top" data-content="the csv target">parcel_survey.csv</span>:
                         <span class="more" data-toggle="popover" data-placement="top" data-content="the excel dependency">parcel_survey.xlsx</span>
                         <br>&nbsp;&nbsp;&nbsp;
-                        <span class="more" data-toggle="popover" data-placement="bottom" data-content="a csvkit command for converting to csv">in2csv</span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="$< is an automatic variable referring to the filename of the first dependency, in this case parcel_survey.xlsx">$<</span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="this redirects output to a file instead of stdout (the console)">></span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="an automatic variable referring to the filename of the target, in this case parcel_survey.csv">$@</span>
+                        <span class="more" data-toggle="popover" data-placement="bottom" data-content="a csvkit command for converting to csv">in2csv</span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="an automatic variable referring to the filename of the first dependency, in this case parcel_survey.xlsx">$<</span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="this redirects output to a file instead of stdout (the console)">></span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="an automatic variable referring to the filename of the target, in this case parcel_survey.csv">$@</span>
                     </div>
+
+                    <h4>4. Grabbing select columns from an excel doc, & creating a csv with a new header</h4>
+                    <div class="codeblock">
+                        <span class="more" data-toggle="popover" data-placement="top" data-content="the csv target">school_id_lookup.csv</span>:
+                        <span class="more" data-toggle="popover" data-placement="top" data-content="the excel dependency">School_data_8-3-14.xlsx</span>
+                        <br>&nbsp;&nbsp;&nbsp;
+                        <span class="more" data-toggle="popover" data-placement="bottom" data-content="a csvkit command for converting to csv">in2csv</span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="an automatic variable referring to the filename of the first dependency, in this case School_data_8-3-14.xlsx">$<</span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="chaining processes: stdout of what's on the left = stdin of what's on the right">|</span>\
+                        <br>&nbsp;&nbsp;&nbsp;
+                        <span class="more" data-toggle="popover" data-placement="bottom" data-content="a csvkit command for taking a slice of a csv">csvcut</span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="the -c option speficies which columns to grab - this grabs the first and second column in the csv">-c "1,2"</span> |\
+                        <br>&nbsp;&nbsp;&nbsp;
+                        (<span class="more" data-toggle="popover" data-placement="bottom" data-content="create a csv header row with two columns">echo "school_id,school_name"</span>; <span class="more" data-toggle="popover" data-placement="bottom" data-content="prints output from the second line onwards - everything in a csv except for the header row">tail +2</span>) <span class="more" data-toggle="popover" data-placement="bottom" data-content="this redirects output to a file instead of stdout (the console)">></span> finished/<span class="more" data-toggle="popover" data-placement="bottom" data-content="notdir is a function - given a filepath, it returns only the file name, without the directory path">$(notdir $@)</span>
+                    </div>
+
+                    <h4>5. Join csvs, using an implicit rule</h4>
+                    <div class="codeblock">
+                        <span class="more" data-toggle="popover" data-placement="top" data-content="the same stem as the dependency">%</span>hourly.joined.csv: <span class="more" data-toggle="popover" data-placement="top" data-content="% will match any non-empty substring (the match is called the stem), making this an implicit rule">%</span>hourly.csv stations.csv
+                        <br>&nbsp;&nbsp;&nbsp;
+                        <span class="more" data-toggle="popover" data-placement="bottom" data-content="a csvkit command for joining csvs">csvjoin</span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="the -c option speficies which columns to join - this joins on the 3rd column in the first csv = the 4th column in the second csv">-c "3,4"</span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="the first csv to be joined">$<</span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="the second csv to be joined">stations.csv</span>
+                        <span class="more" data-toggle="popover" data-placement="bottom" data-content="this redirects output to a file instead of stdout (the console)">></span> finished/<span class="more" data-toggle="popover" data-placement="bottom" data-content="notdir is a function - given a filepath, it returns only the file name, without the directory path">$(notdir $@)</span>
+                    </div>
+                    <br><br><br>
 
 
 
