@@ -128,8 +128,18 @@ Some loose notes on best practices:
 - To limit verbosity, use arg flags. Avoid piping stderr to dev/null
 - List recipes in rough order of processing steps
 - Have 'all' and 'clean' targets
-- Variables go at the top of the file, followed by 'all' and 'clean' targets
 - Prefer implicit patterns over explicit recipes. Encourages DRY and files created by implicit patterns will automatically be cleaned up. 
+- Makefile directives go at the top file, followed by variables go at the top of the file, followed by 'all' and 'clean' targets
+- Use these Makefile directives
+```make
+MAKEFLAGS += --warn-undefined-variables
+SHELL := bash
+.SHELLFLAGS := -eu -o pipefail
+.DEFAULT_GOAL := all
+.DELETE_ON_ERROR:
+.SUFFIXES:
+```
+
 
 ### Variables
 Variables are names defined in a makefile to refer to files, directories, targets, or just about anything that you can represent with text.
