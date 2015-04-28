@@ -175,6 +175,25 @@ Some examples of single-purpose processors:
 - unzip, gzip, and tar for uncompressed files. If you are compressing files, and have an option, use tar zcvf
 - For custom transform code, use Python
 
+### ETL Workflow Directory Structure
+
+In the case that a project has multiple separate data components, you can define a master makefile at the root of the repository, along with sub-directories that each have a sub-makefile at the root. When using this type of nested structure, all data processing/transformation should be defined in the sub-makefiles - the master makefile should only handle setting up the environment, defining variables/targets used by multiple sub-makefiles, & calling sub makefiles.
+
+```
+|-- Makefile  # the master makefile
+|-- README.md
+|-- data
+|   |-- <sub-directory for a data processing component>
+|   |   |-- Makefile   # a sub-makefile
+|   |   |-- README.md  # documents the data source & how data gets processed
+|   |-- <sub-directory for another data processing component>
+|   |   |-- Makefile   # a sub-makefile
+|   |   `-- < ... etc ... >
+|-- processors
+|   |-- <processor_name>.py
+|   `-- <another_processor_name>.sh
+`-- requirements.txt   # lists install requirements for the pipeline
+```
 
 ## Common Transformations - Code Examples
 1. downloading data from the web
@@ -248,25 +267,7 @@ Some examples of single-purpose processors:
 	- ```%``` is a pattern that matches any nonempty substring (making this an implicit rule)
 	- ```$?``` refers to a dependency that's newer than its corresponding target
 	
-### ETL Workflow Directory Structure
 
-In the case that a project has multiple separate data components, you can define a master makefile at the root of the repository, along with sub-directories that each have a sub-makefile at the root. When using this type of nested structure, all data processing/transformation should be defined in the sub-makefiles - the master makefile should only handle setting up the environment, defining variables/targets used by multiple sub-makefiles, & calling sub makefiles.
-
-```
-|-- Makefile  # the master makefile
-|-- README.md
-|-- data
-|   |-- <sub-directory for a data processing component>
-|   |   |-- Makefile   # a sub-makefile
-|   |   |-- README.md  # documents the data source & how data gets processed
-|   |-- <sub-directory for another data processing component>
-|   |   |-- Makefile   # a sub-makefile
-|   |   `-- < ... etc ... >
-|-- processors
-|   |-- <processor_name>.py
-|   `-- <another_processor_name>.sh
-`-- requirements.txt   # lists install requirements for the pipeline
-```
 
 ## Example Repositories
 - [Gary Counts](https://github.com/datamade/gary-counts-data)
