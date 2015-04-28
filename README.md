@@ -70,20 +70,16 @@ The following is not complete documentation of ```make``` functionality - just s
 
 By default, ```make``` assumes that targets are files. However, sometimes it is useful to run commands that do not represent physical files - for example, making all targets or cleaning your directory. To define phony targets, you must explicitly tell ```make``` that they are not associated with files, like so:
 ```
-.PHONY: all clean full_clean
+.PHONY: all clean
 ```
-The most common examples of phony targets that we use are ```all``` (make all targets defined in the makefile), ```clean``` (clean all derived files), and ```full_clean``` (clean all derived files and final output).
+The most common examples of phony targets that we use are ```all``` (make all targets defined in the makefile) and ```clean``` (clean all derived files).
 
 Example rules for these common commands:
 ```
 all: $(GENERATED_FILES)
 
 clean:
-	rm -Rf build/*
-
-full_clean: 
-	rm -Rf build/*
-	rm -Rf finished_files/*
+	rm -Rf finished/*
 ```
 *Note: for the ```$(GENERATED_FILES)``` dependency, ```GENERATED_FILES``` should be a variable defined to include all final output targets in a makefile*
 
@@ -114,7 +110,7 @@ Some useful filename functions:
 | ```$(dir [filepaths])``` | returns only the directory path |
 | ```$(notdir [filepaths])``` | returns only the file name |
 
-For example, ```$(dir build/output1.csv build/output2.csv)``` = ```'build/ build/'``` & ```$(notdir build/output1.csv build/output2.csv)``` = ```'output1.csv output2.csv'```
+For example, ```$(dir finished/file1.csv finished/file2.csv)``` = ```'finished/ finished/'``` & ```$(notdir finished/file1.csv finished/file2.csv)``` = ```'file1.csv file2.csv'```
 
 ## DataMade ETL Styleguide
 
@@ -190,10 +186,11 @@ In the case that a project has multiple separate data components, you can define
 ```
 |-- Makefile  # the master makefile
 |-- README.md
-|-- data
+|-- data/
 |   |-- <sub-directory for a data processing component>
 |   |   |-- Makefile   # a sub-makefile
 |   |   |-- README.md  # documents the data source & how data gets processed
+|   |   |-- finished/  # a directory for finished files
 |   |-- <sub-directory for another data processing component>
 |   |   |-- Makefile   # a sub-makefile
 |   |   `-- < ... etc ... >
