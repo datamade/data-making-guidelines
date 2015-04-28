@@ -171,7 +171,7 @@ Some examples of single-purpose processors:
 
 ## Standard Toolkit
 
-- For fetching content on the web, use wget 
+- For fetching content on the web, use wget. Use `--no-use-server-timestamps` arg for wget.
 - For manipulating geo files, use GDAL/OGR 
 - CSVKit for spreadsheets, or things that can be made into spreadsheets. In particular
   -  [```in2csv```](https://csvkit.readthedocs.org/en/0.9.1/scripts/in2csv.html)    
