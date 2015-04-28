@@ -1,23 +1,19 @@
 # :sparkles:Making Data, the DataMade Way:sparkles:
 
-[![Join the chat at https://gitter.im/datamade/data-making-guidelines](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/datamade/data-making-guidelines?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 ## Contents
-- [Intro](https://github.com/datamade/data-making-guidelines#intro)
-- [DataMade's Data Making Principles](https://github.com/datamade/data-making-guidelines#datamades-data-making-principles)
-- [Make & Makefiles](https://github.com/datamade/data-making-guidelines#make--makefiles)
-  - [Why Use Make/Makefiles?](https://github.com/datamade/data-making-guidelines#why-use-makemakefiles)
-  - [Makefile 101](https://github.com/datamade/data-making-guidelines#makefile-101)
-  - [Makefile 201 - Some Fancy Things Built Into Make](https://github.com/datamade/data-making-guidelines#makefile-201---some-fancy-things-built-into-make)
-- [DataMade ETL Styleguide](https://github.com/datamade/data-making-guidelines#datamade-etl-styleguide)
-  - [Makefile Best Practices](https://github.com/datamade/data-making-guidelines#makefile-best-practices)
-  - [ETL Workflow Directory Structure](https://github.com/datamade/data-making-guidelines#etl-workflow-directory-structure)
-  - [Variables](https://github.com/datamade/data-making-guidelines#variables)
-  - [Processors](https://github.com/datamade/data-making-guidelines#processors)
-- [Standard Toolkit](https://github.com/datamade/data-making-guidelines#standard-toolkit)
-  - [Unix Commands](https://github.com/datamade/data-making-guidelines#unix-commands)
-  - [CSVKit](https://github.com/datamade/data-making-guidelines#csvkit)
-- [Common Transformations - Code Examples](https://github.com/datamade/data-making-guidelines#common-transformations---code-examples)
+- [Intro](#intro)
+- [DataMade's Data Making Principles](#datamades-data-making-principles)
+- [Make & Makefiles](#make--makefiles)
+  - [Why Use Make/Makefiles?](#why-use-makemakefiles)
+  - [Makefile 101](#makefile-101)
+  - [Makefile 201 - Some Fancy Things Built Into Make](#makefile-201---some-fancy-things-built-into-make)
+- [DataMade ETL Styleguide](#datamade-etl-styleguide)
+  - [Makefile Best Practices](#makefile-best-practices)
+  - [Variables](#variables)
+  - [Processors](#processors)
+  - [Standard Toolkit](#standard-toolkit)
+  - [ETL Workflow Directory Structure](#etl-workflow-directory-structure)
+- [Common Transformations - Code Examples](#common-transformations---code-examples)
 
 ## Intro
 
@@ -35,8 +31,8 @@ For enthralling insights on how to get from source data to final output, all whi
 
 - Treat inputs as immutable - don't modify source data directly
 - Be able to deterministically produce the final data with one command 
-- Write as little custom code as possible **Let's expand on this. Do we mean prefer one liners?**
-- Use [standard tools](https://github.com/datamade/data-making-guidelines#standard-toolkit) whenever possible
+- Write as little custom code as possible 
+- Use [standard tools](#standard-toolkit) whenever possible
 - Source data should be under version control
 
 ## Make & Makefiles
@@ -65,8 +61,6 @@ target: dependencies
 **Targets** - the target is what you want to generate. ```make``` expects all targets to be files, with the exception of [phony target](https://github.com/datamade/data-making-guidelines#phony-targets). a file target can be an output filename, an output file pattern, or a [variable](https://github.com/datamade/data-making-guidelines#variables).  
 **Dependencies** - dependencies are everything that needs to exist in order to make the target. ```make``` expects all dependencies to be files. dependencies can be filenames, filename patterns, or [variables](https://github.com/datamade/data-making-guidelines#variables). dependencies are optional.   
 **Recipes** - recipes are commands for generating the target file. any command you can run on the terminal is fair game  for recipes - bash commands, invoking a script, etc.  
-
-[some content here about how make determines what to make & in what order, based on the rules & what files exist]
 
 ### Makefile 201 - Some Fancy Things Built Into Make
 
@@ -127,35 +121,23 @@ For example, ```$(dir build/output1.csv build/output2.csv)``` = ```'build/ build
 ### Makefile Best Practices
 
 Some loose notes on best practices:
-- in each rule, print a friendly message indicating what is being done via ```@echo "doing this thing to this file"```
-- unless a rule is acting on raw data that can't be programmatically grabbed from the web, the rule should have one or more dependencies
-- [some more content]
-
-### ETL Workflow Directory Structure
-
-In the case that a project has multiple separate data components, you can define a master makefile at the root of the repository, along with sub-directories that each have a sub-makefile at the root. When using this type of nested structure, all data processing/transformation should be defined in the sub-makefiles - the master makefile should only handle setting up the environment, defining variables/targets used by multiple sub-makefiles, & calling sub makefiles.
-
+- Some transformations, especially those chaining unix tools, are obscure. Consider printing the purpose of the transformation ```@echo "Downcasing the header of this csv"```
+- Always echo commands.
+- To limit verbosity, use arg flags. Avoid piping stderr to dev/null
+- List recipes in rough order of processing steps
+- Have 'all' and 'clean' targets
+- Prefer implicit patterns over explicit recipes. Encourages DRY and files created by implicit patterns will automatically be cleaned up. 
+- Makefile directives go at the top file, followed by variables go at the top of the file, followed by 'all' and 'clean' targets
+- Use these Makefile directives
+```make
+MAKEFLAGS += --warn-undefined-variables
+SHELL := bash
+.SHELLFLAGS := -eu -o pipefail
+.DEFAULT_GOAL := all
+.DELETE_ON_ERROR:
+.SUFFIXES:
 ```
-|-- Makefile  # the master makefile
-|-- README.md
-|-- data
-|   |-- <sub-directory for a data processing component>
-|   |   |-- Makefile   # a sub-makefile
-|   |   |-- README.md  # documents the data source & how data gets processed
-|   |   |-- build
-|   |   |   `-- <temporary derived files generated by pipeline live here>
-|   |   |-- finished_files
-|   |   |   `-- <the final output of pipeline lives here>
-|   |   `-- raw
-|   |       `-- <raw source data live here>
-|   |-- <sub-directory for another data processing component>
-|   |   |-- Makefile   # a sub-makefile
-|   |   `-- < ... etc ... >
-|-- processors
-|   |-- <processor_name>.py
-|   `-- <another_processor_name>.sh
-`-- requirements.txt   # lists install requirements for the pipeline
-```
+
 
 ### Variables
 Variables are names defined in a makefile to refer to files, directories, targets, or just about anything that you can represent with text.
@@ -186,17 +168,40 @@ Some examples of single-purpose processors:
 - [strip whitespace in a csv](https://github.com/datamade/gary-counts-data/blob/master/data/processors/strip_whitespace.py)
 
 ## Standard Toolkit
-[some content]
 
-#### Unix Commands
-[some content]
+- For fetching content on the web, use wget. Use `--no-use-server-timestamps` arg for wget.
+- For manipulating geo files, use GDAL/OGR 
+- CSVKit for spreadsheets, or things that can be made into spreadsheets. In particular
+  -  [```in2csv```](https://csvkit.readthedocs.org/en/0.9.1/scripts/in2csv.html)    
+  -  [```csvcut```](https://csvkit.readthedocs.org/en/0.9.1/scripts/csvcut.html)
+  -  [```csvjoin```](https://csvkit.readthedocs.org/en/0.9.1/scripts/csvjoin.html) 
+- For simple sql-like queries use csvkit
+- For more complicated queries use postgres
+- For geospatial queries use postgis
+- For text manipulation use sed, unless it's **much** easier to do it with awk
+- CSVKit for spreadsheets, or things that can be made into spreadsheets
+- unzip, gzip, and tar for uncompressed files. If you are compressing files, and have an option, use tar zcvf
+- For custom transform code, use Python
 
-The most common unix commands we use in data processing are wget, unzip, touch, mv/cp
+### ETL Workflow Directory Structure
 
-#### CSVKit
-CSVKit has very useful [command line utilities](https://csvkit.readthedocs.org/en/0.9.1/cli.html) for generating and manipulating csvs.
+In the case that a project has multiple separate data components, you can define a master makefile at the root of the repository, along with sub-directories that each have a sub-makefile at the root. When using this type of nested structure, all data processing/transformation should be defined in the sub-makefiles - the master makefile should only handle setting up the environment, defining variables/targets used by multiple sub-makefiles, & calling sub makefiles.
 
-The most common CSVKit commands that we use in data processing are [```in2csv```](https://csvkit.readthedocs.org/en/0.9.1/scripts/in2csv.html), [```csvcut```](https://csvkit.readthedocs.org/en/0.9.1/scripts/csvcut.html), and [```csvjoin```](https://csvkit.readthedocs.org/en/0.9.1/scripts/csvjoin.html). 
+```
+|-- Makefile  # the master makefile
+|-- README.md
+|-- data
+|   |-- <sub-directory for a data processing component>
+|   |   |-- Makefile   # a sub-makefile
+|   |   |-- README.md  # documents the data source & how data gets processed
+|   |-- <sub-directory for another data processing component>
+|   |   |-- Makefile   # a sub-makefile
+|   |   `-- < ... etc ... >
+|-- processors
+|   |-- <processor_name>.py
+|   `-- <another_processor_name>.sh
+`-- requirements.txt   # lists install requirements for the pipeline
+```
 
 ## Common Transformations - Code Examples
 1. downloading data from the web
@@ -208,10 +213,9 @@ The most common CSVKit commands that we use in data processing are [```in2csv```
 	
 	# REAL EXAMPLE	
 	Boundaries_Miscellaneous_IDHS.zip:
-		wget http://maps.indiana.edu/download/Government/Boundaries_Miscellaneous_IDHS.zip -O build/Boundaries_Miscellaneous_IDHS.zip
-		touch build/Boundaries_Miscellaneous_IDHS.zip
+		wget --no-use-server-timestamps http://maps.indiana.edu/download/Government/Boundaries_Miscellaneous_IDHS.zip -O build/Boundaries_Miscellaneous_IDHS.zip
 	```
-	Note that you need to touch the downloaded file - this updates the file metadata for when it was last updated, which 	```make``` uses to determine whether files are up to date.
+	Make looks at the last modified timestamps of file to figure out what may need rebuilding. The 	          	`--no-use-server-timestamps` argument will cause the downloaded file to have a local timeestampe, not the 		timestamp of the file on the server, which is the default behavior. 
 
 2. unzipping a zip file
 	```
@@ -232,8 +236,8 @@ The most common CSVKit commands that we use in data processing are [```in2csv```
 	#	in2csv [excel dependency filepath] > [target filepath]
 	
 	# REAL EXAMPLE	
-	parcel_survey_2014-02-01.csv:
-		in2csv raw/010214_ParcelSurvey_LC.xlsx > build/parcel_survey_2014-02-01.csv
+	parcel_survey_2014-02-01.csv: raw/010214_ParcelSurvey_LC.xlsx
+		in2csv $< > $@
 	```
 	There is no need to also run csvclean after [```in2csv```](https://csvkit.readthedocs.org/en/0.9.1/scripts/in2csv.html), since in2csv does its best to create a clean output csv.
 	If your excel document has more than one sheet, use ```in2csv``` with the ```--sheet``` option followed by the sheet name.
@@ -264,13 +268,14 @@ The most common CSVKit commands that we use in data processing are [```in2csv```
 	#	csvjoin -c [column in csv1],[column in csv2] [csv1 filepath] [csv2 filepath] > [target filepath]
 	
 	# REAL EXAMPLE	
-	%hourly.joined.csv: %hourly.csv
-		csvjoin -c 1,2 build/$(notdir $?) raw/stations.csv > build/$(notdir $@)
+	%hourly.joined.csv: %hourly.csv raw/stations.csv
+		csvjoin -c 1,2 build/$(notdir $?) $(word 2,$^) > build/$(notdir $@)
 	```
 	
 	- ```%``` is a pattern that matches any nonempty substring (making this an implicit rule)
 	- ```$?``` refers to a dependency that's newer than its corresponding target
 	
+
 
 ## Example Repositories
 - [Gary Counts](https://github.com/datamade/gary-counts-data)
