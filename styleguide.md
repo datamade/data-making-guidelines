@@ -6,11 +6,11 @@
 
 ## Contents
 
-1. [Makefile Best Practices](#makefile-best-practices)
-2. [Variables](#variables)
-3. [Processors](#processors)
-4. [Standard Toolkit](#standard-toolkit)
-5. [ETL Workflow Directory Structure](#etl-workflow-directory-structure)
+1. [Makefile Best Practices](#1-makefile-best-practices)
+2. [Variables](#2-variables)
+3. [Processors](#3-processors)
+4. [Standard Toolkit](#4-standard-toolkit)
+5. [ETL Workflow Directory Structure](#5-etl-workflow-directory-structure)
 
 ### 1. Makefile Best Practices
 
