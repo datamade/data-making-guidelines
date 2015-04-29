@@ -2,7 +2,7 @@
 1. [Make & Makefile Overview](https://github.com/datamade/data-making-guidelines/blob/master/make.md)
 2. **ETL Styleguide**
 
-## ETL Styleguide
+# ETL Styleguide
 
 ## Contents
 
