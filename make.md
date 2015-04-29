@@ -1,4 +1,8 @@
-## Make & Makefiles
+## Making Data, the DataMade Way
+1. **Make & Makefile Overview**
+2. [ETL Styleguide](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md)
+
+# Make & Makefile Overview
 
 To achieve a reproducible data workflow, we use [GNU's make](http://en.wikipedia.org/wiki/Make_%28software%29).
 
