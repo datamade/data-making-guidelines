@@ -16,6 +16,8 @@
         wget --no-use-server-timestamps \ 
         http://maps.indiana.edu/download/Reference/Land_Parcels_County_IDHS.zip -O $@
     ```
+Notice the use of `--no-use-server-timestamps`. If you didn't use this argument, this file would have a last-touched timestamp of the file on the server. By using this argument, the file will have a timestamp of when it was downloaded.
+
 
 3. Unzipping a zip directory
 
