@@ -15,7 +15,7 @@ For enthralling insights on how to get from source data to final output, all whi
 1. Treat inputs as immutable - don't modify source data directly
 2. Be able to deterministically produce the final data with one command 
 3. Write as little custom code as possible 
-4. Use [standard tools](#standard-toolkit) whenever possible
+4. Use [standard tools](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md#4-standard-toolkit) whenever possible
 5. Source data should be under version control
 
 ## The Guide
