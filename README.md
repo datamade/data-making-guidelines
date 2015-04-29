@@ -21,9 +21,9 @@ For enthralling insights on how to get from source data to final output, all whi
 ## The Guide
 
 1. [Make & Makefile Overview](https://github.com/datamade/data-making-guidelines/blob/master/make.md)
-  1. [Why Use Make/Makefiles?](https://github.com/datamade/data-making-guidelines/blob/master/make.md#why-use-makemakefiles)
-  2. [Makefile 101](https://github.com/datamade/data-making-guidelines/blob/master/make.md#makefile-101)
-  3. [Makefile 201 - Some Fancy Things Built Into Make](https://github.com/datamade/data-making-guidelines/blob/master/make.md#makefile-201---some-fancy-things-built-into-make)
+  1. [Why Use Make/Makefiles?](https://github.com/datamade/data-making-guidelines/blob/master/make.md#1-why-use-makemakefiles)
+  2. [Makefile 101](https://github.com/datamade/data-making-guidelines/blob/master/make.md#2-makefile-101)
+  3. [Makefile 201 - Some Fancy Things Built Into Make](https://github.com/datamade/data-making-guidelines/blob/master/make.md#3-makefile-201---some-fancy-things-built-into-make)
 2. [ETL Styleguide](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md)
   1. [Makefile Best Practices](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md#1-makefile-best-practices)
   2. [Variables](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md#2-variables)
