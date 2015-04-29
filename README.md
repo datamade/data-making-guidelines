@@ -24,9 +24,9 @@ For enthralling insights on how to get from source data to final output, all whi
 2. [ETL Styleguide](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md)
 
 ## Code examples
-- [Some Simple ETL Code Examples with Make](http://datamade.github.io/data-making-guidelines/)
-- [Gary Counts](https://github.com/datamade/gary-counts-data)
-- [Trees](https://github.com/fgregg/trees)
+- [Some Annotated ETL Code Examples with Make](http://datamade.github.io/data-making-guidelines/)
+- [Gary Counts Repo](https://github.com/datamade/gary-counts-data)
+- [Trees Repo](https://github.com/fgregg/trees)
 
 ## Further reading
 - [Makefile Style Guide by Clark Grubb](http://clarkgrubb.com/makefile-style-guide#data-workflows)
