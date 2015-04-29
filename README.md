@@ -32,7 +32,7 @@ For enthralling insights on how to get from source data to final output, all whi
   5. [ETL Workflow Directory Structure](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md#5-etl-workflow-directory-structure)
 
 ## Code examples
-- [Some Annotated ETL Code Examples with Make](http://datamade.github.io/data-making-guidelines/)
+- [Annotated ETL Code Examples with Make](http://datamade.github.io/data-making-guidelines/)
 - [Gary Counts Repo](https://github.com/datamade/gary-counts-data)
 - [Trees Repo](https://github.com/fgregg/trees)
 
