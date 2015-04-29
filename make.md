@@ -22,6 +22,7 @@ A simple way of thinking about a data processing workflow is as a series of step
 - ```make``` allows you to create all final data with a single command, since ```make``` rules can be chained. writing a ```makefile``` is ultimately an exercise in making your existing data processing steps explicit, to ultimately avoid manual, undocumented steps
 - ```make``` is smart about only building what's necessary, because it's aware of when a file was last modified - ```make``` will not rebuild existing files if their dependencies haven't changed.
 - ```make``` give you parallel processing for nearly free
+- ```make``` is already on your computer if you have a Mac or run Linux
 
 
 ### 2. Makefile 101
