@@ -21,6 +21,7 @@ Some loose notes on best practices:
 - List recipes in rough order of processing steps
 - Have 'all' and 'clean' phony targets
 - Prefer implicit patterns over explicit recipes. Encourages DRY and files created by implicit patterns will automatically be cleaned up. 
+- When implicit patterns are not attractive, set intermediate build files as dependencies of the `.INTERMEDIATE` target. Make will clean up these files for you.
 - Makefile directives go at the top file, followed by variables go at the top of the file, followed by 'all' and 'clean' targets
 - Use these Makefile directives
 ```make
