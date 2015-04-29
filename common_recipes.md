@@ -1,13 +1,13 @@
 1. Setup phony targets
 
-```
-.PHONY: all clean 
+    ```
+    .PHONY: all clean 
 
-all: $(GENERATED_FILES) 
+    all: $(GENERATED_FILES) 
 
-clean: 
-    rm -Rf finished/*
-```
+    clean: 
+        rm -Rf finished/*
+    ```
 
 2. Downloading a zip directory
 
