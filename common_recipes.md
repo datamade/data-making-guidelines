@@ -46,5 +46,5 @@
 
     ```
     %hourly.joined.csv: %hourly.csv stations.csv 
-        csvjoin -c "3,4" $< stations.csv > finished/$(notdir $@)
+        csvjoin -c "3,4" $< $(word 2,$^) > finished/$(notdir $@)
     ```
