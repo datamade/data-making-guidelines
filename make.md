@@ -8,9 +8,9 @@ To achieve a reproducible data workflow, we use [GNU's make](http://en.wikipedia
 
 ## Contents
 
-1. [Why Use Make/Makefiles?](#why-use-makemakefiles)
-2. [Makefile 101](#makefile-101)
-3. [Makefile 201 - Some Fancy Things Built Into Make](#makefile-201---some-fancy-things-built-into-make)
+1. [Why Use Make/Makefiles?](#1-why-use-makemakefiles)
+2. [Makefile 101](#2-makefile-101)
+3. [Makefile 201 - Some Fancy Things Built Into Make](#3-makefile-201---some-fancy-things-built-into-make)
 
 
 ### 1. Why Use Make/Makefiles?
