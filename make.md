@@ -4,12 +4,12 @@ To achieve a reproducible data workflow, we use [GNU's make](http://en.wikipedia
 
 ## Contents
 
-- [Why Use Make/Makefiles?](#why-use-makemakefiles)
-- [Makefile 101](#makefile-101)
-- [Makefile 201 - Some Fancy Things Built Into Make](#makefile-201---some-fancy-things-built-into-make)
+1. [Why Use Make/Makefiles?](#why-use-makemakefiles)
+2. [Makefile 101](#makefile-101)
+3. [Makefile 201 - Some Fancy Things Built Into Make](#makefile-201---some-fancy-things-built-into-make)
 
 
-### Why Use Make/Makefiles?
+### 1. Why Use Make/Makefiles?
 A simple way of thinking about a data processing workflow is as a series of steps. However, instead of thinking *forward*, in terms of an order of steps from step 1 to step N, you can also also think *backwards* - in terms of the outputs that you want and the files that those outputs are derived from. Thinking backwards is a more powerful way of expressing a data workflow, since dependencies aren't always linear.
 
 ```make``` is a build tool that generates file *targets*, each of which can depend upon the existence of other files (*dependencies*). Targets, dependencies, and instructions specifying to build them are defined in a *makefile*. The nice thing about makefiles is that once you specify a dependency graph, ```make``` will do the work of figuring out the individual steps required to build an output, based on your rules and the files you already have.
@@ -20,7 +20,7 @@ A simple way of thinking about a data processing workflow is as a series of step
 - ```make``` give you parallel processing for nearly free
 
 
-### Makefile 101
+### 2. Makefile 101
 When you run a ```make``` command, ```make``` will look for instructions in a file called ```Makefile``` in the current directory. The building block of a makefile is a "rule". Each "rule" specifies (1) a *target*, (2) the target's *dependencies*, and the target's *recipe* (i.e. the commands for creating the target).
 
 **The general structure of a single make "rule":**
@@ -32,7 +32,7 @@ target: dependencies
 **Dependencies** - dependencies are everything that needs to exist in order to make the target. ```make``` expects all dependencies to be files. dependencies can be filenames, filename patterns, or [variables](https://github.com/datamade/data-making-guidelines#variables). dependencies are optional.   
 **Recipes** - recipes are commands for generating the target file. any command you can run on the terminal is fair game  for recipes - bash commands, invoking a script, etc.  
 
-### Makefile 201 - Some Fancy Things Built Into Make
+### 3. Makefile 201 - Some Fancy Things Built Into Make
 
 The following is not complete documentation of ```make``` functionality - just some stuff we use most often.
 
