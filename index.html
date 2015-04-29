@@ -19,11 +19,32 @@
 
                     <h1 class="heavy">Make By Example!</h1>
                     <h3 class="heavy">Intro</h2>
-                    <p>some words and stuff</p>
+                    <p>When we make data at DataMade, we use GNU make to achieve a reproducible data transformation workflow.</p>
+                    <p>For more background on make, see our <a href="https://github.com/datamade/data-making-guidelines/blob/master/make.md" target="blank">overview of make & makefiles</a></p>
+                    <p>For ETL best practices, see our <a href="https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md" target="blank">DataMade ETL styleguide</a></p>
+
 
                     <h3 class="heavy">Example Make Rules</h2>
 
-                    <h4>1. Downloading a zip directory</h4>
+                    <h4><i>General Structure of a Rule</i></h4>
+                    <div class="codeblock pseudocode">
+                        <span class="more" data-toggle="popover" data-placement="top" data-content="the target is what you want to generate. make expects all targets to be files, with the exception of phony target. a file target can be an output filename, an output file pattern, or a variable.">target</span>: <span class="more" data-toggle="popover" data-placement="top" data-content="dependencies are everything that needs to exist in order to make the target. make expects all dependencies to be files. dependencies can be filenames, filename patterns, or variables. dependencies are optional.">dependencies</span>
+                        <br>&nbsp;&nbsp;&nbsp;
+                        <span class="more" data-toggle="popover" data-placement="top" data-content="recipes are commands for generating the target file. any command you can run on the terminal is fair game for recipes - bash commands, invoking a script, etc.">recipe</span>
+                    </div>
+
+                    <h4>1. Setup phony targets</h4>
+                    <div class="codeblock">
+                        <span class="more" data-toggle="popover" data-placement="top" data-content="by default, make assumes that targets are files. however, sometimes it is useful to run commands that do not represent physical files - for example, making all targets or cleaning your directory. this specifies that the following targets are not file targets">.PHONY</span>: <span class="more" data-toggle="popover" data-placement="top" data-content="we use this phony target to make all finished files">all</span> <span class="more" data-toggle="popover" data-placement="top" data-content="we use this phony target to restore the directory to its state before running any make commands">clean</span>
+                        <br><br>
+                        <span class="more" data-toggle="popover" data-placement="top" data-content="this rule allows you to generate all of your finished files with one command, 'make all'">all</span>: $(<span class="more" data-toggle="popover" data-placement="top" data-content="this is a variable that should be defined to include all finished files">GENERATED_FILES</span>)
+                        <br><br>
+                        <span class="more" data-toggle="popover" data-placement="top" data-content="this rule allows you to clean all generated files with one command, 'make clean'">clean</span>:
+                        <br>&nbsp;&nbsp;&nbsp;
+                        rm -Rf <span class="more" data-toggle="popover" data-placement="top" data-content="we put all finished files in the finished/ directory, so that they can be cleaned all at once">finished/*<span class="more" data-toggle="popover" data-placement="top" data-content="***">
+                    </div>
+
+                    <h4>2. Downloading a zip directory</h4>
                     <div class="codeblock">
                         <span class="more" data-toggle="popover" data-placement="top" data-content="this is the target. there's no dependency here, b/c it's being downloaded from the web">parcels.zip</span>:
                         <br>&nbsp;&nbsp;&nbsp;
@@ -33,7 +54,7 @@
                         http://maps.indiana.edu/download/Reference/Land_Parcels_County_IDHS.zip <span class="more" data-toggle="popover" data-placement="top" data-content="a wget option that allows you to rename what you're downloading">-O</span> <span class="more" data-toggle="popover" data-placement="top" data-content="this is an automatic variable referring to the filename of the target, in this case parcels.zip">$@</span>
                     </div>
 
-                    <h4>2. Unzipping a zip directory</h4>
+                    <h4>3. Unzipping a zip directory</h4>
                     <div class="codeblock">
                         <span class="more" data-toggle="popover" data-placement="top" data-content="this states that chicomm.shp is an intermediate target, meaning that it will be deleted after all targets listing it as a dependency have been built">.INTERMEDIATE</span>:
                         chicomm.shp<br>
@@ -43,7 +64,7 @@
                         unzip <span class="more" data-toggle="popover" data-placement="bottom" data-content="this option overwrites existing files">-o</span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="this is an automatic variable referring to the name of the first dependency - in this case, chicomm.zip">$<</span>
                     </div>
 
-                    <h4>3. Converting excel to csv</h4>
+                    <h4>4. Converting excel to csv</h4>
                     <div class="codeblock">
                         <span class="more" data-toggle="popover" data-placement="top" data-content="this states that parcel_survey.csv is an intermediate target, meaning that it will be deleted after all targets listing it as a dependency have been built">.INTERMEDIATE</span>:
                         parcel_survey.csv<br>
@@ -53,7 +74,7 @@
                         <span class="more" data-toggle="popover" data-placement="bottom" data-content="a csvkit command for converting to csv">in2csv</span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="an automatic variable referring to the filename of the first dependency, in this case parcel_survey.xlsx">$<</span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="this redirects output to a file instead of stdout (the console)">></span> <span class="more" data-toggle="popover" data-placement="bottom" data-content="an automatic variable referring to the filename of the target, in this case parcel_survey.csv">$@</span>
                     </div>
 
-                    <h4>4. Grabbing select columns from an excel doc, & creating a csv with a new header</h4>
+                    <h4>5. Grabbing select columns from an excel doc, & creating a csv with a new header</h4>
                     <div class="codeblock">
                         <span class="more" data-toggle="popover" data-placement="top" data-content="the csv target">school_id_lookup.csv</span>:
                         <span class="more" data-toggle="popover" data-placement="top" data-content="the excel dependency">School_data_8-3-14.xlsx</span>
@@ -65,7 +86,7 @@
                         (<span class="more" data-toggle="popover" data-placement="bottom" data-content="create a csv header row with two columns">echo "school_id,school_name"</span>; <span class="more" data-toggle="popover" data-placement="bottom" data-content="prints output from the second line onwards - everything in a csv except for the header row">tail +2</span>) <span class="more" data-toggle="popover" data-placement="bottom" data-content="this redirects output to a file instead of stdout (the console)">></span> finished/<span class="more" data-toggle="popover" data-placement="bottom" data-content="notdir is a function - given a filepath, it returns only the file name, without the directory path">$(notdir $@)</span>
                     </div>
 
-                    <h4>5. Join csvs, using an implicit rule</h4>
+                    <h4>6. Join csvs, using an implicit rule</h4>
                     <div class="codeblock">
                         <span class="more" data-toggle="popover" data-placement="top" data-content="the same stem as the dependency">%</span>hourly.joined.csv: <span class="more" data-toggle="popover" data-placement="top" data-content="% will match any non-empty substring (the match is called the stem), making this an implicit rule">%</span>hourly.csv stations.csv
                         <br>&nbsp;&nbsp;&nbsp;

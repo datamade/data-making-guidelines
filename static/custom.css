@@ -7,6 +7,11 @@
     white-space: nowrap;
 }
 
+.pseudocode{
+    background: #F3F3F3;
+    width: 60%;
+}
+
 .heavy{
     font-weight: 700;
 }
