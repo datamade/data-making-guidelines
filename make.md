@@ -1,6 +1,6 @@
 ## Make & Makefiles
 
-To achieve a reproducible data workflow, we use GNU make
+To achieve a reproducible data workflow, we use [GNU's make](http://en.wikipedia.org/wiki/Make_%28software%29).
 
 ## Contents
 
