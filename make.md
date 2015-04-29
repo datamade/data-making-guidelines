@@ -1,4 +1,4 @@
-## Making Data, the DataMade Way
+## [Making Data, the DataMade Way](https://github.com/datamade/data-making-guidelines/blob/master/README.md)
 1. **Make & Makefile Overview**
 2. [ETL Styleguide](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md)
 
