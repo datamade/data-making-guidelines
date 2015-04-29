@@ -19,7 +19,7 @@ Some loose notes on best practices:
 - Always echo commands.
 - To limit verbosity, use arg flags. Avoid piping stderr to dev/null
 - List recipes in rough order of processing steps
-- Have 'all' and 'clean' targets
+- Have 'all' and 'clean' phony targets
 - Prefer implicit patterns over explicit recipes. Encourages DRY and files created by implicit patterns will automatically be cleaned up. 
 - Makefile directives go at the top file, followed by variables go at the top of the file, followed by 'all' and 'clean' targets
 - Use these Makefile directives
