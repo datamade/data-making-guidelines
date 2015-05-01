@@ -33,6 +33,10 @@ SHELL := bash
 .SUFFIXES:
 ```
 
+### Cleaning up after yourself.
+It's best to use implicit rules and .INTERMEDIATE targets to have Make clean up intermediate files for you. Sometimes, though, this is not so easy. In particular, if a step in the build process emits multiple files, only some of which will be dependencies, it's not very easy to get Make to clean up everything. This happens frequently when working with ESRI shapefiles which include a .prj, .dbf, .xml, and other files in addition to the .shp file. 
+
+Just make a .PHONY cleanup for everything that Make misses, and document the cleanup target in the README.
 
 ### 2. Variables
 Variables are names defined in a makefile to refer to files, directories, targets, or just about anything that you can represent with text.
