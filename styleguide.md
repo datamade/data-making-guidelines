@@ -80,6 +80,7 @@ Some examples of single-purpose processors:
 - For text manipulation use sed, unless it's **much** easier to do it with awk
 - CSVKit for spreadsheets, or things that can be made into spreadsheets
 - unzip, gzip, and tar for uncompressed files. If you are compressing files, and have an option, use tar zcvf
+- For working with data in JSON format, use [```jq```](http://stedolan.github.io/jq/)
 - For custom transform code, use Python
 
 ### 5. ETL Workflow Directory Structure
