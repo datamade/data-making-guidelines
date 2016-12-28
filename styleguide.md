@@ -77,7 +77,7 @@ Some examples of single-purpose processors:
 - For simple sql-like queries use csvkit
 - For more complicated queries use postgres
 - For geospatial queries use postgis
-- For text manipulation use sed, unless it's **much** easier to do it with awk
+- For text manipulation use [perl](https://luv.asn.au/overheads/perl/man.html) (like sed but without portability issues), unless it's **much** easier to do it with awk
 - unzip, gzip, and tar for uncompressed files. If you are compressing files, and have an option, use tar zcvf
 - For custom transform code, use Python
 
