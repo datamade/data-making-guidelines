@@ -79,6 +79,7 @@ Some examples of single-purpose processors:
 - For geospatial queries use postgis
 - For text manipulation use [perl](https://luv.asn.au/overheads/perl/man.html) (like sed but without portability issues), unless it's **much** easier to do it with awk
 - unzip, gzip, and tar for uncompressed files. If you are compressing files, and have an option, use tar zcvf
+- For working with data in JSON format, use [```jq```](http://stedolan.github.io/jq/)
 - For custom transform code, use Python
 
 ### 5. ETL Workflow Directory Structure
