@@ -50,3 +50,24 @@ Notice the use of `--no-use-server-timestamps`. If you didn't use this argument,
     %hourly.joined.csv: %hourly.csv stations.csv 
         csvjoin -c "3,4" $< $(word 2,$^) > finished/$(notdir $@)
     ```
+
+7. Load data from a CSV into a table using Postgres.
+
+    ```
+    taxes.table: taxes.csv
+        psql -c "CREATE TABLE $(basename $@) ( \
+                /* schema for the table goes here */ \
+            )"
+        psql -c
+            "COPY $(basename $@) \
+             FROM STDIN WITH CSV QUOTE AS '\"' \
+             DELIMITER AS ','"
+        touch $@
+    ```
+
+8. Load data from a Shapefile into a table using Postgres.
+    ```
+    addresses.table: addresses.shp
+        shp2pgsql -I -s 4326 -d $< $(basename $@) | psql
+        touch $@
+    ```

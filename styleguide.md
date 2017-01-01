@@ -80,6 +80,7 @@ Some examples of single-purpose processors:
 - For text manipulation use [perl](https://luv.asn.au/overheads/perl/man.html) (like sed but without portability issues), unless it's **much** easier to do it with awk
 - unzip, gzip, and tar for uncompressed files. If you are compressing files, and have an option, use tar zcvf
 - For custom transform code, use Python
+- For data processing steps that produce database tables or other non-file output, create a placeholder file by adding `touch $@` at the end of the recipe.
 
 ### 5. ETL Workflow Directory Structure
 
