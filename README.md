@@ -4,19 +4,23 @@ This is [DataMade's](http://datamade.us) guide to **extracting**, **transforming
 
 ETL refers to the general process of:
 
-1. taking raw **source data** (Extract)
-2. doing some stuff to get the data in shape, possibly involving intermediate **derived files** (Transform)
-3. & ultimately ending up with **final output** in a usable form (for Loading into something that consumes the data - be it an app, a system, a visualization, etc.)
+1. taking raw **source data** (*"Extract"*)
+2. doing some stuff to get the data in shape, possibly involving intermediate **derived files** (*"Transform"*)
+3. producing **final output** in a more usable form (for *"Loading"* into something that consumes the data - be it an app, a system, a visualization, etc.)
 
-For enthralling insights on how to get from source data to final output, all while minimizing future headaches - read on!
+Having a standard ETL workflow helps us make sure that our work is clean, consistent, and easy to reproduce. By following these guidelines you'll be able to keep your work up to date and share it with the world in a standard format - all with as few headaches as possible.
 
-## Principles
+## Basic Principles
+
+These five principles inform all of our data work:
 
 1. Treat inputs as immutable - don't modify source data directly
 2. Be able to deterministically produce the final data with one command 
 3. Write as little custom code as possible 
 4. Use [standard tools](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md#4-standard-toolkit) whenever possible
-5. Source data should be under version control
+5. Keep source data under version control
+
+Unsure how to follow these principles? Read on!
 
 ## The Guide
 
