@@ -30,7 +30,7 @@ In short, **Make is a particularly nifty tool for data processing because**:
 - Writing a Makefile forces you to make your data processing steps explicit
 - Make is smart about only building what's necessary, because it keeps track of dependencies
 - Make is efficient, and gives you parallel processing for nearly free
-- If you have a Mac or run Linux, Make is already on your computer!
+- If you have a Mac or run Linux, Make is already on your computer! (If you run Windows, I'm sorry - you may have to [install it manually.](http://gnuwin32.sourceforge.net/packages/make.htm))
 
 For a more eloquent argument in favor of using Make for data processing, see ["Why Use Make" by Mike Bostock](http://bost.ocks.org/mike/make/).
 
