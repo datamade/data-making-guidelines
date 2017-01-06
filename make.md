@@ -53,7 +53,7 @@ A rule's **dependencies** are everything that needs to exist in order to make th
 
 A **recipe** lists the commands that Make needs to run to generate the target. Any command you can run on the command line is fair game for recipes, and any recipe should be able to be run on its own in your shell. This means you're free to use command line utilities, edit the filesystem, and run scripts in your recipe. Just remember: any command line utility you use that isn't built into the bash language or included in the repo will need to be clearly identified (ideally with installation instructions) in your README, or else users with different machines might not be able to run your Makefile.
 
-In the end, a **Makefile** is mostly a collection of rules for generating targets, as well as the dependencies for those targets. In this way, a Makefile is a lot like any old program you might write: it defines functions (or rules) for running code (or bash scripts) to modify files (or perform ETL). One of the biggest differences between a Makefile and a standard program, however, is that compared to most programs, writing a Makefile requires thinking *backwards*.  
+In the end, a **Makefile** is mostly a collection of rules for generating targets, as well as the dependencies for those targets. In this way, a Makefile is a lot like any old program you might write: it defines functions (rules) for running code (bash commands) to modify files (perform ETL). One of the biggest differences between a Makefile and a standard program, however, is that compared to most programs, writing a Makefile requires thinking *backwards*.  
 
 #### Thinking backwards
 
@@ -94,7 +94,7 @@ This kind of "backwards" thinking can be a tricky concept to get your head aroun
 
 #### Running Make
 
-Every time you run the `make` command, you tell it which target file you want it to build (with the syntax `make&nbsp;<target>`). Extending the example above, you would run the following command to generate your table:
+Every time you run the `make` command, you tell it which target file you want it to build (with the syntax `make <target>`). Extending the example above, you would run the following command to generate your table:
 
 ```
 make final_table
