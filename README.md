@@ -37,6 +37,7 @@ Unsure how to follow these principles? Read on!
 
 ## Code examples
 - [Some Annotated ETL Code Examples with Make](http://datamade.github.io/data-making-guidelines/)
+- [Chicago Lead](https://github.com/City-Bureau/chicago-lead) - data work with a clear README and Makefile
 - [EITC Works](https://github.com/datamade/eitc-map/tree/master/data) - adding data attributes to Illinois House and Senate district shapefiles and outputting at GeoJSON
 
 ## Further reading
