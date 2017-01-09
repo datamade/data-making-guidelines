@@ -201,3 +201,9 @@ Some useful filename functions:
 | ```$(notdir [filepaths])``` | returns only the file name |
 
 For example, ```$(dir finished/file1.csv finished/file2.csv)``` = ```'finished/ finished/'```, and ```$(notdir finished/file1.csv finished/file2.csv)``` = ```'file1.csv file2.csv'```
+
+## Further Reading
+
+By now, you might feel like a Make expert. That's great! Move on to our [ETL styleguide ("Makefile 301")](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md) to dig into the specifics of how to write a beautiful, DataMade-ready Makefile.
+
+You might also feel really confused about this whole Makefile business. You may ask yourself, "What the heck is a target – is it a file or a variable?" Or, "What's the deal with this phony target thing?" If that sounds like you, don't fret! Make can be confusing if you've never done ETL work before, and with time and practice you'll get the hang of it. Take a look at our [annotated Make examples](http://datamade.github.io/data-making-guidelines/), and then try to annotate your own Makefile. We recommend starting with the [Chicago Lead](https://github.com/City-Bureau/chicago-lead), a well-documented piece of DataMade ETL. For a more challenging Makefile, try to annotate our [Illinois school report cards Makefile](https://github.com/datamade/school-report-cards).
