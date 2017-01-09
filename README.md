@@ -14,11 +14,11 @@ Having a standard ETL workflow helps us make sure that our work is clean, consis
 
 These five principles inform all of our data work:
 
-1. Treat inputs as immutable - don't modify source data directly
-2. Be able to deterministically produce the final data with one command 
-3. Write as little custom code as possible 
-4. Use [standard tools](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md#4-standard-toolkit) whenever possible
-5. Keep source data under version control
+1. **Never destroy data** - treat source data as immutable, and show your work when you modify it
+2. Be able to deterministically **produce the final data with one command** 
+3. Write as **little custom code** as possible 
+4. Use **[standard tools](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md#4-standard-toolkit)** whenever possible
+5. Keep source data under **version control**
 
 Unsure how to follow these principles? Read on!
 
