@@ -82,6 +82,8 @@ Some examples of single-purpose processors:
 
 - For fetching content on the web, use **wget**. Use the `--no-use-server-timestamps` flag so you don't download it every time Make runs; use the `-O` flag to define a custom filepath for the output.
 - For manipulating geo files use **GDAL/OGR**. 
+- For concatenating, cropping, inspecting, or extracting single values from PDF files use the appropriate [**Poppler**](https://packages.debian.org/sid/poppler-utils) (`brew install poppler` or `apt-get poppler-utils`) utility. 
+- For scraping entire PDFs, use [**tabula-java**](https://github.com/tabulapdf/tabula-java). (See [get-the-lead-out](https://github.com/City-Bureau/get-the-lead-out/blob/master/Makefile) for an example.)
 - Use **CSVkit** for manipulating spreadsheets, or things that can be made into spreadsheets. In particular:
   -  [```in2csv```](https://csvkit.readthedocs.org/en/0.9.1/scripts/in2csv.html)    
   -  [```csvcut```](https://csvkit.readthedocs.org/en/0.9.1/scripts/csvcut.html)
