@@ -188,6 +188,7 @@ clean_%.csv: raw_%.csv
     edit $^ | format > $@
 ```
 
+**Note:** If your pattern rule fails, check the depedencies. If you've fat-fingered something or omitted the directory by mistake, Make will fail saying a recipe for the target doesn't exist (`make: *** No rule to make target BLAH.  Stop.)`, [when in fact it's the dependency that's missing](https://stackoverflow.com/a/5194141/7142170).
 
 #### Functions for Filenames
 
