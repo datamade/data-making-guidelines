@@ -40,12 +40,6 @@ db :
 %.csv : %.header %.data 
 	cat $^ > $@
 
-% : %.csv
-	cat $< | head -300000 | csvsql --datetime='%Y-%m-%d %H:%M:%S.%f' -z 10000000 --no-constraints --db postgresql:///$(PG_DB) --table $*
-	if psql -d $(PG_DB) -c "\d $@"  > /dev/null 2>&1; then cat $< | \
-            psql -d $(PG_DB) -c "COPY \"$@\" FROM STDIN WITH CSV HEADER"; fi
-	touch $@
-
 linux-tools:
 	curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
 	curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
