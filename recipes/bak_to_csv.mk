@@ -3,8 +3,8 @@ BAK_PATH = path/to/dir/with/bak/file.bak
 PASSWORD = password
 DOCKER_NAME = bak
 DB_NAME = name_of_database
-MDF = path/to/where/you/want/to/restore/database.mdf
-MDF_LOG = path/to/where/you/want/to/restore/database/logs.ldf
+MDF = c:\path\to\where\you\want\to\restore\database.mdf
+MDF_LOG = c:\path\to\where\you\want\to\restore\database\logs.ldf
 PG_DB = states_attorney
 TABLESPACE = NAME_OF_TABLESPACE_TO_EXPORT_FROM
 
