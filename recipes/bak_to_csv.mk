@@ -28,7 +28,7 @@ db :
 
 
 %.header: sqlserver
-	/opt/mssql-tools/bin/bcp "SELECT COLUMN_DOCKER_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_DOCKER_NAME='$(SOURCE_TABLE)'" queryout $@_raw -c -S localhost,1402 -U SA -d $(DB_NAME) -P '$(PASSWORD)'
+	/opt/mssql-tools/bin/bcp "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='$(SOURCE_TABLE)'" queryout $@_raw -c -S localhost,1402 -U SA -d $(DB_NAME) -P '$(PASSWORD)'
 	cat $@_raw | tr '\n' ',' | sed 's/,$$/\n/' > $@
 	rm $@_raw
 
