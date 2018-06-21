@@ -8,7 +8,7 @@ MDF_LOG = c:\path\to\where\you\want\to\restore\database\logs.ldf
 PG_DB = states_attorney
 TABLESPACE = NAME_OF_TABLESPACE_TO_EXPORT_FROM
 
-SOURCE_TABLE = $(PREFIX)_$(shell echo $(basename $(notdir $@)) | tr a-z A-Z)
+SOURCE_TABLE = $(shell echo $(basename $(notdir $@)) | tr a-z A-Z)
 CHECK_DOCKER = sudo docker ps --filter=name=$(DOCKER_NAME) -q
 
 
