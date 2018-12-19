@@ -35,15 +35,6 @@ Some loose notes on best practices:
 #### Keep things clean
 - When implicit patterns are not attractive, set intermediate build files as dependencies of the `.INTERMEDIATE` target. Make will clean up these files for you.
 - Makefile directives go at the top of the file, followed by variables, followed by 'all' and 'clean' targets.
-- Use these Makefile directives as a default:
-```make
-MAKEFLAGS += --warn-undefined-variables
-SHELL := bash
-.SHELLFLAGS := -eu -o pipefail
-.DEFAULT_GOAL := all
-.DELETE_ON_ERROR:
-.SUFFIXES:
-```
 
 #### A note on cleanliness
 It's best to use implicit rules and .INTERMEDIATE targets to have Make clean up intermediate files for you. Sometimes, though, this is not so easy. In particular, if a step in the build process emits multiple files, only some of which will be dependencies, it's not very easy to get Make to clean up everything. This happens frequently when working with ESRI shapefiles which include a .prj, .dbf, .xml, and other files in addition to the .shp file. 
