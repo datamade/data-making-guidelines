@@ -25,15 +25,15 @@ Unsure how to follow these principles? Read on!
 ## The Guide
 
 1. [Make & Makefile Overview](https://github.com/datamade/data-making-guidelines/blob/master/make.md)
-  * [Why Use Make/Makefiles?](https://github.com/datamade/data-making-guidelines/blob/master/make.md#1-why-use-makemakefiles)
-  * [Makefile 101](https://github.com/datamade/data-making-guidelines/blob/master/make.md#2-makefile-101)
-  * [Makefile 201 - Some Fancy Things Built Into Make](https://github.com/datamade/data-making-guidelines/blob/master/make.md#3-makefile-201---some-fancy-things-built-into-make)
+    - [Why Use Make/Makefiles?](https://github.com/datamade/data-making-guidelines/blob/master/make.md#1-why-use-makemakefiles)
+    - [Makefile 101](https://github.com/datamade/data-making-guidelines/blob/master/make.md#2-makefile-101)
+    - [Makefile 201 - Some Fancy Things Built Into Make](https://github.com/datamade/data-making-guidelines/blob/master/make.md#3-makefile-201---some-fancy-things-built-into-make)
 2. [ETL Styleguide](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md)
-  * [Makefile Best Practices](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md#1-makefile-best-practices)
-  * [Variables](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md#2-variables)
-  * [Processors](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md#3-processors)
-  * [Standard Toolkit](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md#4-standard-toolkit)
-  * [ETL Workflow Directory Structure](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md#5-etl-workflow-directory-structure)
+    - [Makefile Best Practices](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md#1-makefile-best-practices)
+    - [Variables](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md#2-variables)
+    - [Processors](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md#3-processors)
+    - [Standard Toolkit](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md#4-standard-toolkit)
+    - [ETL Workflow Directory Structure](https://github.com/datamade/data-making-guidelines/blob/master/styleguide.md#5-etl-workflow-directory-structure)
 
 ## Code examples
 - [Some Annotated ETL Code Examples with Make](http://datamade.github.io/data-making-guidelines/)
