@@ -8,12 +8,12 @@
         <title>Annotated ETL Code Examples with Make</title>
 
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href="https://bootswatch.com/yeti/bootstrap.min.css" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         <link href="static/custom.css" rel="stylesheet">
 
     </head>
     <body>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-10">
 
@@ -107,7 +107,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script>
         $(function () {
-            $('[data-toggle="popover"]').popover({'trigger':'hover'})
+            $('[data-toggle="popover"]').popover({
+                trigger: 'hover'
+            });
         })
     </script>
 </html>
