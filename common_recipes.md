@@ -43,7 +43,7 @@ using this argument, the file will have a timestamp of when it was downloaded.
     school_id_lookup.csv: School_data_8-3-14.xlsx 
         in2csv $< |\ 
         csvcut -c "1,2" |\ 
-        (echo "school_id,school_name"; tail +2) > finished/$(notdir $@)
+        (echo "school_id,school_name"; tail -n +2) > finished/$(notdir $@)
     ```
 
 6. Join csvs, using an implicit rule
