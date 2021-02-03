@@ -2,6 +2,11 @@
 
 This is [DataMade's](http://datamade.us) guide to **extracting**, **transforming** and **loading** (ETL) data using [Make](http://en.wikipedia.org/wiki/Make_%28software%29), a common command line utility.
 
+This guide is part of a body of technical and process documentation maintained by DataMade. Head over to [`datamade/how-to`](
+https://github.com/datamade/how-to/) for other guides on topics ranging from AWS to work practices!
+
+## What is ETL?
+
 ETL refers to the general process of:
 
 1. taking raw **source data** (*"Extract"*)
