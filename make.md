@@ -174,14 +174,7 @@ clean_scores.csv: raw_scores.csv
     edit raw_scores.csv | format > clean_scores.csv
 ```
 
-Since our cleaning process is identical for both of these rules, we can collapse them using a pattern rule:
-
-```
-clean_%.csv: raw_%.csv
-    edit raw_%.csv | format > clean_%.csv
-```
-
-Note that we can simplify this even further using automatic variables:
+Since our cleaning process is identical for both of these rules, we can collapse them using a pattern rule and automatic variables:
 
 ```
 clean_%.csv: raw_%.csv
